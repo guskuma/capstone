@@ -1,0 +1,104 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "f0e9f2eed796f290a480a9791aeeb57e",
+    "entities": [
+      {
+        "tableName": "Notificacao",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `remote_id` INTEGER NOT NULL, `tipo` INTEGER NOT NULL, `titulo` TEXT, `conteudo` TEXT, `acao` INTEGER NOT NULL, `acao_conteudo` TEXT, `lida` INTEGER NOT NULL, `fixa` INTEGER NOT NULL, `ultima_atualizacao` INTEGER)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "remote_id",
+            "columnName": "remote_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tipo",
+            "columnName": "tipo",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "titulo",
+            "columnName": "titulo",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "conteudo",
+            "columnName": "conteudo",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "acao",
+            "columnName": "acao",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "acao_conteudo",
+            "columnName": "acao_conteudo",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "lida",
+            "columnName": "lida",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fixa",
+            "columnName": "fixa",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ultima_atualizacao",
+            "columnName": "ultima_atualizacao",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_Notificacao_remote_id",
+            "unique": true,
+            "columnNames": [
+              "remote_id"
+            ],
+            "createSql": "CREATE UNIQUE INDEX `index_Notificacao_remote_id` ON `${TABLE_NAME}` (`remote_id`)"
+          },
+          {
+            "name": "index_Notificacao_ultima_atualizacao",
+            "unique": false,
+            "columnNames": [
+              "ultima_atualizacao"
+            ],
+            "createSql": "CREATE  INDEX `index_Notificacao_ultima_atualizacao` ON `${TABLE_NAME}` (`ultima_atualizacao`)"
+          }
+        ],
+        "foreignKeys": []
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"f0e9f2eed796f290a480a9791aeeb57e\")"
+    ]
+  }
+}

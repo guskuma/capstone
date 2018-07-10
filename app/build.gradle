@@ -1,25 +1,37 @@
 apply plugin: 'com.android.application'
 
 android {
+    flavorDimensions "versionCode"
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.guskuma.notifique"
         minSdkVersion 21
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+        free {
+            applicationId "com.guskuma.notifique.free"
+        }
+        paid {
+            applicationId "com.guskuma.notifique.paid"
         }
     }
     packagingOptions {
         exclude 'META-INF/services/javax.annotation.processing.Processor'  // butterknife & parceler
     }
-
     configurations.all {
         resolutionStrategy.force 'com.android.support:animated-vector-drawable:27.1.1'
         resolutionStrategy.force 'com.android.support:custom-tabs:27.1.1'
@@ -42,9 +54,11 @@ dependencies {
     implementation 'org.parceler:parceler-api:1.1.6'
     annotationProcessor 'org.parceler:parceler:1.1.6'
     implementation 'com.google.code.gson:gson:2.8.5'
-    implementation 'com.google.android.gms:play-services-ads:15.0.1'
     implementation "android.arch.persistence.room:runtime:1.1.1"
     annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
+
+
+    freeImplementation 'com.google.android.gms:play-services-ads:15.0.1'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

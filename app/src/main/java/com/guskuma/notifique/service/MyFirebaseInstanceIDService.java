@@ -1,4 +1,4 @@
-package com.guskuma.notifique;
+package com.guskuma.notifique.service;
 
 import android.util.Log;
 

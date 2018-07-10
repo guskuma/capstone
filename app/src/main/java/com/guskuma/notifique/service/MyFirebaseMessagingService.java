@@ -1,4 +1,4 @@
-package com.guskuma.notifique;
+package com.guskuma.notifique.service;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;

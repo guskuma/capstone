@@ -31,6 +31,7 @@
 
             <TextView
                 android:id="@+id/titulo"
+                android:transitionName="titulo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toEndOf="@id/colorIndicator"
@@ -40,10 +41,11 @@
                 android:paddingStart="@dimen/default_space_between_views"
                 android:paddingEnd="@dimen/default_space_between_views"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                tool:text="Nova UI Cardview"/>
+                tool:text="Titulo UI Cardview"/>
 
             <TextView
                 android:id="@+id/conteudo"
+                android:transitionName="conteudo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/titulo"

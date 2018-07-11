@@ -33,7 +33,6 @@ public class NotificacoesAdapter extends RecyclerView.Adapter<NotificacoesAdapte
         mListener = listener;
     }
 
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -50,28 +49,15 @@ public class NotificacoesAdapter extends RecyclerView.Adapter<NotificacoesAdapte
         holder.mItem = n;
 
         holder.mTitulo.setText(n.titulo);
-        holder.mColorIndicator.setBackgroundColor(getColor(n.tipo));
+        holder.mColorIndicator.setBackgroundColor(TipoNotificacao.getColor(mContext, n.tipo));
         holder.mConteudo.setText(n.conteudo);
         holder.mUltimaAtualizacao.setText("em " + sdf.format(n.ultima_atualizacao));
 
         holder.mView.setOnClickListener(view -> {
             if (mListener != null) {
-                mListener.onItemClick(holder.mItem);
+                mListener.onItemClick(view, holder.mItem);
             }
         });
-    }
-
-    private int getColor(final int tipoNotificacao) {
-        switch (tipoNotificacao) {
-            case TipoNotificacao.INFORMACAO:
-                return mContext.getResources().getColor(R.color.notificacao_tipo_informacao);
-            case TipoNotificacao.RELATORIO:
-                return mContext.getResources().getColor(R.color.notificacao_tipo_relatorio);
-            case TipoNotificacao.ERRO:
-                return mContext.getResources().getColor(R.color.notificacao_tipo_erro);
-            default:
-                return mContext.getResources().getColor(R.color.notificacao_tipo_default);
-        }
     }
 
     @Override
@@ -110,7 +96,7 @@ public class NotificacoesAdapter extends RecyclerView.Adapter<NotificacoesAdapte
     }
 
     public interface NotificacaoInteractionListener {
-        void onItemClick(Notificacao item);
+        void onItemClick(View view, Notificacao item);
     }
 
 }

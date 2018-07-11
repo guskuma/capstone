@@ -1,5 +1,9 @@
 package com.guskuma.notifique.data.model;
 
+import android.content.Context;
+
+import com.guskuma.notifique.R;
+
 public class TipoNotificacao {
 
     public static final int INFORMACAO = 0;
@@ -16,6 +20,21 @@ public class TipoNotificacao {
                 return "Erro";
             default:
                 return "Não reconhecido";
+        }
+    }
+
+
+
+    public static int getColor(Context context, final int tipoNotificacao) {
+        switch (tipoNotificacao) {
+            case TipoNotificacao.INFORMACAO:
+                return context.getResources().getColor(R.color.notificacao_tipo_informacao);
+            case TipoNotificacao.RELATORIO:
+                return context.getResources().getColor(R.color.notificacao_tipo_relatorio);
+            case TipoNotificacao.ERRO:
+                return context.getResources().getColor(R.color.notificacao_tipo_erro);
+            default:
+                return context.getResources().getColor(R.color.notificacao_tipo_default);
         }
     }
 

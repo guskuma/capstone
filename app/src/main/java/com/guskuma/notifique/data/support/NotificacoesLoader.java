@@ -22,12 +22,17 @@ public class NotificacoesLoader extends AsyncTaskLoader<List<Notificacao>> {
     public List<Notificacao> loadInBackground() {
         AppDatabase mDb = AppDatabaseHelper.getDbget(getContext());
 
-        if(mDb.notificacaoDAO().getAll().size() == 0)
-            for(int i =0; i < 10; i++) {
-                mDb.notificacaoDAO().insert(AppDatabaseHelper.createNotificacao(i));
-            }
+        List<Notificacao> notificacoes = mDb.notificacaoDAO().getAll();
 
-        return mDb.notificacaoDAO().getAll();
+        if(notificacoes.size() > 0){
+            mDb.notificacaoDAO().delete(notificacoes.toArray(new Notificacao[notificacoes.size()]));
+        }
+
+        for(int i =0; i < 10; i++) {
+            mDb.notificacaoDAO().insert(AppDatabaseHelper.createRandomNotificacao(i));
+        }
+
+        return mDb.notificacaoDAO().getAllOrdered();
     }
 
 }

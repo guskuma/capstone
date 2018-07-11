@@ -4,4 +4,9 @@
     <color name="colorPrimaryDark">#455A64</color>
     <color name="colorAccent">#c5b7b0</color>
     <color name="colorBackground">#ECEFF1</color>
+    <color name="notificacao_tipo_informacao">#689F38</color>
+    <color name="notificacao_tipo_relatorio">#1976D2</color>
+    <color name="notificacao_tipo_erro">#D32F2F</color>
+    <color name="notificacao_tipo_alerta">#FBC02D</color>
+    <color name="notificacao_tipo_default">#455A64</color>
 </resources>

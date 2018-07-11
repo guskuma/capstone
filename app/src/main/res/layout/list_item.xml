@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tool="http://schemas.android.com/tools"
     android:paddingTop="4dp"
     android:paddingBottom="4dp">
 
@@ -11,7 +11,7 @@
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="4:3"
+        app:layout_constraintDimensionRatio="4:2"
         android:elevation="6dp"
         app:cardCornerRadius="6dp"
         app:cardUseCompatPadding="true">
@@ -20,10 +20,56 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/titulo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <View
+                android:id="@+id/colorIndicator"
+                android:layout_width="10dp"
+                android:layout_height="match_parent"
+                android:background="@color/notificacao_tipo_informacao"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:id="@+id/titulo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/colorIndicator"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:paddingTop="@dimen/default_space_between_views"
+                android:paddingStart="@dimen/default_space_between_views"
+                android:paddingEnd="@dimen/default_space_between_views"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                tool:text="Nova UI Cardview"/>
+
+            <TextView
+                android:id="@+id/conteudo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/titulo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titulo"
+                app:layout_constraintBottom_toTopOf="@id/ultimaAtualizacao"
+                android:paddingStart="@dimen/default_space_between_views"
+                android:paddingEnd="@dimen/default_space_between_views"
+                android:paddingTop="@dimen/default_space_between_views"
+                android:ellipsize="end"
+                android:lines="5"
+                tool:text="Mauris vel arcu vel ex mollis iaculis. Suspendisse potenti. Phasellus in ex enim. In pellentesque ante in nulla aliquet tempus. Nunc sed ipsum metus. Curabitur vitae eros non libero mollis iaculis. Proin tristique eleifend egestas. Donec justo mauris, tempor in sem a, imperdiet suscipit dui. Pellentesque rhoncus imperdiet arcu quis dapibus. Maecenas dolor leo, imperdiet nec aliquet sit amet, gravida at mi. Nullam tincidunt mauris ac nunc interdum, eu volutpat velit aliquam." />
+
+            <TextView
+                android:id="@+id/ultimaAtualizacao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/conteudo"
+                app:layout_constraintVertical_bias="1.0"
+                android:paddingTop="@dimen/default_space_between_views"
+                android:paddingBottom="@dimen/default_space_between_views"
+                android:paddingEnd="@dimen/default_space_between_views"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small.Italic"
+                tool:text="em 11/07/2018 12:54" />
 
         </android.support.constraint.ConstraintLayout>
 

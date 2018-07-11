@@ -1,5 +1,6 @@
 package com.guskuma.notifique.data.support;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,7 +10,11 @@ import android.widget.TextView;
 
 import com.guskuma.notifique.R;
 import com.guskuma.notifique.data.model.Notificacao;
+import com.guskuma.notifique.data.model.TipoNotificacao;
 
+import java.text.DateFormat;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +26,8 @@ public class NotificacoesAdapter extends RecyclerView.Adapter<NotificacoesAdapte
 
     private final List<Notificacao> mValues = new ArrayList<>();
     private final NotificacaoInteractionListener mListener;
+    private final Format sdf = SimpleDateFormat.getDateTimeInstance(DateFormat.SHORT,DateFormat.SHORT);
+    private Context mContext;
 
     public NotificacoesAdapter(NotificacaoInteractionListener listener) {
         mListener = listener;
@@ -30,7 +37,8 @@ public class NotificacoesAdapter extends RecyclerView.Adapter<NotificacoesAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
+        mContext = parent.getContext();
+        View view = LayoutInflater.from(mContext)
                 .inflate(R.layout.list_item, parent, false);
         Timber.plant(new Timber.DebugTree());
         return new ViewHolder(view);
@@ -42,12 +50,28 @@ public class NotificacoesAdapter extends RecyclerView.Adapter<NotificacoesAdapte
         holder.mItem = n;
 
         holder.mTitulo.setText(n.titulo);
+        holder.mColorIndicator.setBackgroundColor(getColor(n.tipo));
+        holder.mConteudo.setText(n.conteudo);
+        holder.mUltimaAtualizacao.setText("em " + sdf.format(n.ultima_atualizacao));
 
         holder.mView.setOnClickListener(view -> {
             if (mListener != null) {
                 mListener.onItemClick(holder.mItem);
             }
         });
+    }
+
+    private int getColor(final int tipoNotificacao) {
+        switch (tipoNotificacao) {
+            case TipoNotificacao.INFORMACAO:
+                return mContext.getResources().getColor(R.color.notificacao_tipo_informacao);
+            case TipoNotificacao.RELATORIO:
+                return mContext.getResources().getColor(R.color.notificacao_tipo_relatorio);
+            case TipoNotificacao.ERRO:
+                return mContext.getResources().getColor(R.color.notificacao_tipo_erro);
+            default:
+                return mContext.getResources().getColor(R.color.notificacao_tipo_default);
+        }
     }
 
     @Override
@@ -65,6 +89,9 @@ public class NotificacoesAdapter extends RecyclerView.Adapter<NotificacoesAdapte
         Notificacao mItem;
 
         @BindView(R.id.titulo) public TextView mTitulo;
+        @BindView(R.id.conteudo) public TextView mConteudo;
+        @BindView(R.id.ultimaAtualizacao) public TextView mUltimaAtualizacao;
+        @BindView(R.id.colorIndicator) public View mColorIndicator;
 
         ViewHolder(View view) {
             super(view);

@@ -49,7 +49,7 @@ public class DatabaseInstrumentedTest {
 
         while (i < numReg){
 
-            Notificacao n = AppDatabaseHelper.createNotificacao(new Random().nextInt());
+            Notificacao n = AppDatabaseHelper.createRandomNotificacao(new Random().nextInt());
             mNotificacaoDAO.insert(n);
 
             i++;

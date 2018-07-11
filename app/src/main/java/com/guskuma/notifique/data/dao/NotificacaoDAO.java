@@ -26,6 +26,8 @@ public interface NotificacaoDAO {
     @Query("SELECT * FROM Notificacao")
     List<Notificacao> getAll();
 
+    @Query("SELECT * FROM Notificacao ORDER BY fixa, lida, ultima_atualizacao desc")
+    List<Notificacao> getAllOrdered();
 
 
 }

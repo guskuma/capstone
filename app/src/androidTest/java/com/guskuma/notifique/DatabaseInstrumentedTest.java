@@ -6,18 +6,15 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.guskuma.notifique.data.AppDatabase;
-import com.guskuma.notifique.data.Notificacao;
-import com.guskuma.notifique.data.TipoAcao;
-import com.guskuma.notifique.data.TipoNotificacao;
+import com.guskuma.notifique.data.AppDatabaseHelper;
 import com.guskuma.notifique.data.dao.NotificacaoDAO;
+import com.guskuma.notifique.data.model.Notificacao;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -39,20 +36,20 @@ public class DatabaseInstrumentedTest {
     }
 
     @After
-    public void closeDb() throws IOException {
+    public void closeDb() {
         mDb.close();
     }
 
     @Test
-    public void writeAndRead() throws Exception {
+    public void writeAndRead() {
 
         int i = 0;
         int numReg = new Random().nextInt(20);
-        List<Notificacao> notificacoes = null;
+        List<Notificacao> notificacoes;
 
         while (i < numReg){
 
-            Notificacao n = createNotificacao(new Random().nextInt());
+            Notificacao n = AppDatabaseHelper.createNotificacao(new Random().nextInt());
             mNotificacaoDAO.insert(n);
 
             i++;
@@ -68,19 +65,5 @@ public class DatabaseInstrumentedTest {
 
         notificacoes.parallelStream().forEach(n -> mNotificacaoDAO.delete(n));
         assertThat(mNotificacaoDAO.getAll().size(), equalTo(0));
-    }
-
-    private Notificacao createNotificacao(int id) {
-        Notificacao n = new Notificacao();
-        n.remote_id = id;
-        n.tipo = TipoNotificacao.INFORMACAO;
-        n.titulo = "Testando "+ id;
-        n.conteudo = "Conteudo "+ id;
-        n.acao = TipoAcao.ABRIR_LINK;
-        n.acao_conteudo = "http://www.notifique.com";
-        n.lida = false;
-        n.fixa = false;
-        n.ultima_atualizacao = new Date();
-        return n;
     }
 }

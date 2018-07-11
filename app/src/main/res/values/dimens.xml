@@ -1,3 +1,6 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="default_list_margin_horiz">16dp</dimen>
+    <dimen name="default_list_margin_vert">4dp</dimen>
+    <dimen name="default_space_between_views">8dp</dimen>
 </resources>

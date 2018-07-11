@@ -1,4 +1,4 @@
-package com.guskuma.notifique.data;
+package com.guskuma.notifique.data.model;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Index;

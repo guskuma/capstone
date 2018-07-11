@@ -7,7 +7,7 @@ import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.guskuma.notifique.data.Notificacao;
+import com.guskuma.notifique.data.model.Notificacao;
 
 import java.util.List;
 

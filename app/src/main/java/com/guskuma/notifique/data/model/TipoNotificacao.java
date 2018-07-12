@@ -23,8 +23,6 @@ public class TipoNotificacao {
         }
     }
 
-
-
     public static int getColor(Context context, final int tipoNotificacao) {
         switch (tipoNotificacao) {
             case TipoNotificacao.INFORMACAO:

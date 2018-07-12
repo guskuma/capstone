@@ -1,5 +1,6 @@
 package com.guskuma.notifique.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.guskuma.notifique.R;
 import com.guskuma.notifique.data.model.Notificacao;
+import com.guskuma.notifique.data.model.TipoAcao;
 import com.guskuma.notifique.data.model.TipoNotificacao;
 
 import org.parceler.Parcels;
@@ -49,8 +51,6 @@ public class DetailActivity extends AppCompatActivity {
         //Verifica o tipo da notificação e aí gera o fragment adequado
         switch (mNotificacao.tipo){
             case TipoNotificacao.INFORMACAO:
-                fragment = DetailActivityFragment.newInstance(mNotificacao);
-                break;
             case TipoNotificacao.RELATORIO:
             case TipoNotificacao.ERRO:
                 fragment = DetailActivityFragment.newInstance(mNotificacao);
@@ -66,8 +66,13 @@ public class DetailActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = TipoAcao.getActionIntent(mNotificacao.tipo, "+5541992460123");
+
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                } else {
+                    Snackbar.make(view, "Não foi possível executar a ação " + "LIGAR", Snackbar.LENGTH_LONG).show();
+                }
             }
         });
 

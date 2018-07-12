@@ -3,11 +3,9 @@ package com.guskuma.notifique.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.TextView;
 
 import com.guskuma.notifique.R;
@@ -26,7 +24,7 @@ public class DetailActivity extends AppCompatActivity {
     public static final String ARG_NOTIFICACAO = "NotificacaoEntity";
 
     @BindView(R.id.titulo) public TextView mTitulo;
-    @BindView(R.id.fab) FloatingActionButton fab;
+    @BindView(R.id.fab) FloatingActionButton mFab;
 
     private Notificacao mNotificacao;
 
@@ -63,18 +61,13 @@ public class DetailActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction().add(R.id.detailFragmentPlaceHolder, fragment).commit();
         }
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = TipoAcao.getActionIntent(mNotificacao.tipo, "+5541992460123");
-
-                if (intent.resolveActivity(getPackageManager()) != null) {
-                    startActivity(intent);
-                } else {
-                    Snackbar.make(view, "Não foi possível executar a ação " + "LIGAR", Snackbar.LENGTH_LONG).show();
-                }
-            }
+        mFab.setOnClickListener(view -> {
+            Intent intent = TipoAcao.getActionIntent(mNotificacao.acao, mNotificacao.acao_conteudo);
+            startActivity(Intent.createChooser(intent, getResources().getText(R.string.intent_chooser)));
         });
+//        mFab.setBackgroundTintList(ColorStateList.valueOf(TipoNotificacao.getLightColor(this, mNotificacao.tipo)));
+        mFab.setImageDrawable(TipoAcao.getDrawable(this, mNotificacao.acao));
+
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }

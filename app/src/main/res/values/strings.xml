@@ -2,4 +2,8 @@
     <string name="app_name">Notifique</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_detail">DetailActivity</string>
+    <string name="transition_name_color_indicator">colorIndicator</string>
+    <string name="transition_name_titulo">titulo</string>
+    <string name="transition_name_conteudo">conteudo</string>
+    <string name="intent_chooser">Compartilhar notificação</string>
 </resources>

@@ -13,6 +13,7 @@ import java.util.List;
 public class NotificacoesLoader extends AsyncTaskLoader<List<Notificacao>> {
 
     public static final int ID = 89345873;
+    private final int ITEMS_TO_CREATE = 20;
 
     public NotificacoesLoader(@NonNull Context context) {
         super(context);
@@ -20,16 +21,17 @@ public class NotificacoesLoader extends AsyncTaskLoader<List<Notificacao>> {
 
     @Override
     public List<Notificacao> loadInBackground() {
-        AppDatabase mDb = AppDatabaseHelper.getDbget(getContext());
+        AppDatabase mDb = AppDatabaseHelper.getDb(getContext());
 
-        List<Notificacao> notificacoes = mDb.notificacaoDAO().getAll();
+//        List<Notificacao> notificacoes = mDb.notificacaoDAO().getAll();
+//        if(notificacoes.size() > 0){
+//            mDb.notificacaoDAO().delete(notificacoes.toArray(new Notificacao[notificacoes.size()]));
+//        }
 
-        if(notificacoes.size() > 0){
-            mDb.notificacaoDAO().delete(notificacoes.toArray(new Notificacao[notificacoes.size()]));
-        }
-
-        for(int i =0; i < 10; i++) {
-            mDb.notificacaoDAO().insert(AppDatabaseHelper.createRandomNotificacao(i));
+        if(mDb.notificacaoDAO().getAll().size() == 0) {
+            for (int i = 0; i < ITEMS_TO_CREATE; i++) {
+                mDb.notificacaoDAO().insert(AppDatabaseHelper.createRandomNotificacao(i));
+            }
         }
 
         return mDb.notificacaoDAO().getAllOrdered();

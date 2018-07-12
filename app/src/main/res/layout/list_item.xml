@@ -22,16 +22,17 @@
 
             <View
                 android:id="@+id/colorIndicator"
+                android:transitionName="@string/transition_name_color_indicator"
                 android:layout_width="10dp"
                 android:layout_height="match_parent"
-                android:background="@color/notificacao_tipo_informacao"
+                android:background="@color/notificacao_tipo_informacao_primaryDark"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
             <TextView
                 android:id="@+id/titulo"
-                android:transitionName="titulo"
+                android:transitionName="@string/transition_name_titulo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toEndOf="@id/colorIndicator"
@@ -45,7 +46,7 @@
 
             <TextView
                 android:id="@+id/conteudo"
-                android:transitionName="conteudo"
+                android:transitionName="@string/transition_name_conteudo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/titulo"

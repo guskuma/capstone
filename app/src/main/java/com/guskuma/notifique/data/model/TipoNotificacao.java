@@ -26,14 +26,27 @@ public class TipoNotificacao {
     public static int getColor(Context context, final int tipoNotificacao) {
         switch (tipoNotificacao) {
             case TipoNotificacao.INFORMACAO:
-                return context.getResources().getColor(R.color.notificacao_tipo_informacao);
+                return context.getResources().getColor(R.color.notificacao_tipo_informacao_primaryDark);
             case TipoNotificacao.RELATORIO:
-                return context.getResources().getColor(R.color.notificacao_tipo_relatorio);
+                return context.getResources().getColor(R.color.notificacao_tipo_relatorio_primaryDark);
             case TipoNotificacao.ERRO:
-                return context.getResources().getColor(R.color.notificacao_tipo_erro);
+                return context.getResources().getColor(R.color.notificacao_tipo_erro_primaryDark);
             default:
-                return context.getResources().getColor(R.color.notificacao_tipo_default);
+                return context.getResources().getColor(R.color.notificacao_tipo_default_primaryDark);
         }
     }
+    public static int getLightColor(Context context, final int tipoNotificacao) {
+        switch (tipoNotificacao) {
+            case TipoNotificacao.INFORMACAO:
+                return context.getResources().getColor(R.color.notificacao_tipo_informacao_primary);
+            case TipoNotificacao.RELATORIO:
+                return context.getResources().getColor(R.color.notificacao_tipo_relatorio_primary);
+            case TipoNotificacao.ERRO:
+                return context.getResources().getColor(R.color.notificacao_tipo_erro_primary);
+            default:
+                return context.getResources().getColor(R.color.notificacao_tipo_default_primary);
+        }
+    }
+
 
 }

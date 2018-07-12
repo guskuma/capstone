@@ -16,7 +16,7 @@ public class AppDatabaseHelper {
 
     private static AppDatabase mDb = null;
 
-    public static AppDatabase getDbget(Context context){
+    public static AppDatabase getDb(Context context){
 
         if(mDb == null) {
             mDb = Room.databaseBuilder(context,
@@ -29,6 +29,7 @@ public class AppDatabaseHelper {
     public static Notificacao createRandomNotificacao(int id) {
 
         int tipoNotificacao = new Random().nextInt(3);
+        int tipoAcao = new Random().nextInt(3);
 
         List<String> conteudos = new ArrayList<>();
         conteudos.add("Mauris vel arcu vel ex mollis iaculis. Suspendisse potenti. Phasellus in ex enim. In pellentesque ante in nulla aliquet tempus. Nunc sed ipsum metus. Curabitur vitae eros non libero mollis iaculis. Proin tristique eleifend egestas. Donec justo mauris, tempor in sem a, imperdiet suscipit dui. Pellentesque rhoncus imperdiet arcu quis dapibus. Maecenas dolor leo, imperdiet nec aliquet sit amet, gravida at mi. Nullam tincidunt mauris ac nunc interdum, eu volutpat velit aliquam. ");
@@ -46,12 +47,25 @@ public class AppDatabaseHelper {
         n.tipo = tipoNotificacao;
         n.titulo = TipoNotificacao.getDescricao(tipoNotificacao) + " " + id;
         n.conteudo = conteudos.get(new Random().nextInt(conteudos.size()));
-        n.acao = TipoAcao.ABRIR_LINK;
-        n.acao_conteudo = "http://www.notifique.com";
+        n.acao = tipoAcao;
+        n.acao_conteudo = getConteudoAcao(tipoAcao);
         n.lida = false;
         n.fixa = false;
         n.ultima_atualizacao = new Date();
         return n;
+    }
+
+    private static String getConteudoAcao(int tipoAcao) {
+        switch (tipoAcao){
+            case TipoAcao.ABRIR_LINK:
+                return "http://www.notifique.com";
+            case TipoAcao.COMPARTILHAR:
+                return "";
+            case TipoAcao.LIGAR:
+                return "+5541992460123";
+            default:
+                return "";
+        }
     }
 
 }

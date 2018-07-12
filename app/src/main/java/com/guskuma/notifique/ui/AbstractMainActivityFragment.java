@@ -57,8 +57,8 @@ public class AbstractMainActivityFragment extends Fragment implements LoaderMana
             Intent i = new Intent(getContext(), DetailActivity.class);
             i.putExtra(DetailActivity.ARG_NOTIFICACAO, Parcels.wrap(item));
 
-            Pair<View, String> p1 = Pair.create(clickedView, "titulo");
-            Pair<View, String> p2 = Pair.create(clickedView, "conteudo");
+            Pair<View, String> p1 = Pair.create(clickedView, getResources().getString(R.string.transition_name_titulo));
+            Pair<View, String> p2 = Pair.create(clickedView, getResources().getString(R.string.transition_name_conteudo));
             ActivityOptionsCompat options = ActivityOptionsCompat.
                     makeSceneTransitionAnimation(getActivity(), p1, p2);
             startActivity(i, options.toBundle());

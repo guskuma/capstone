@@ -11,6 +11,16 @@
         <item name="android:windowContentTransitions">true</item>
     </style>
 
+    <style name="AppThemeInformacao" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/notificacao_tipo_informacao_primary</item>
+        <item name="colorPrimaryDark">@color/notificacao_tipo_informacao_primaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorBackground">@color/notificacao_tipo_informacao_colorBackground</item>
+
+        <item name="android:windowContentTransitions">true</item>
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

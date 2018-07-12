@@ -25,7 +25,7 @@ public class DetailActivityFragment extends Fragment {
     private Unbinder mUnbinder;
     private Notificacao mNotificacao;
 
-    @BindView(R.id.titulo) public TextView mTitulo;
+    //@BindView(R.id.titulo) public TextView mTitulo;
     @BindView(R.id.conteudo) public TextView mConteudo;
 //    @BindView(R.id.ultimaAtualizacao) public TextView mUltimaAtualizacao;
 //    @BindView(R.id.colorIndicator) public View mColorIndicator;
@@ -48,7 +48,7 @@ public class DetailActivityFragment extends Fragment {
         Timber.plant(new Timber.DebugTree());
 
         mNotificacao = Parcels.unwrap(getArguments().getParcelable(DetailActivity.ARG_NOTIFICACAO));
-        mTitulo.setText(mNotificacao.titulo);
+//        mTitulo.setText(mNotificacao.titulo);
         mConteudo.setText(mNotificacao.conteudo);
 
         return view;

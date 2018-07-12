@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 import com.guskuma.notifique.R;
 import com.guskuma.notifique.data.model.Notificacao;
@@ -22,6 +23,7 @@ public class DetailActivity extends AppCompatActivity {
 
     public static final String ARG_NOTIFICACAO = "NotificacaoEntity";
 
+    @BindView(R.id.titulo) public TextView mTitulo;
     @BindView(R.id.fab) FloatingActionButton fab;
 
     private Notificacao mNotificacao;
@@ -36,7 +38,11 @@ public class DetailActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         mNotificacao = Parcels.unwrap(getIntent().getParcelableExtra(ARG_NOTIFICACAO));
+
+        mTitulo.setText(mNotificacao.titulo);
 
         Fragment fragment;
 

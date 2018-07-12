@@ -91,7 +91,8 @@ public class NotificacoesAdapter extends RecyclerView.Adapter<NotificacoesAdapte
         }
     }
 
-    public void addItems(List<Notificacao> items){
+    public void setItems(List<Notificacao> items){
+        mValues.clear();
         mValues.addAll(items);
     }
 

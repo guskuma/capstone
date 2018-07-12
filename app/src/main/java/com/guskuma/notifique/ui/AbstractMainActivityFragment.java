@@ -95,8 +95,8 @@ public class AbstractMainActivityFragment extends Fragment implements LoaderMana
 
     @Override
     public void onLoadFinished(@NonNull Loader<List<Notificacao>> loader, List<Notificacao> data) {
-        mAdapter.addItems(data);
-        mAdapter.notifyDataSetChanged();
+        mAdapter.setItems(data);
+        //mAdapter.notifyDataSetChanged();
     }
 
     @Override

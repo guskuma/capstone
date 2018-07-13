@@ -9,16 +9,56 @@
         <item name="android:colorBackground">@color/colorBackground</item>
 
         <item name="android:windowContentTransitions">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="AppThemeInformacao" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/notificacao_tipo_informacao_primary</item>
         <item name="colorPrimaryDark">@color/notificacao_tipo_informacao_primaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:colorBackground">@color/notificacao_tipo_informacao_colorBackground</item>
+        <item name="colorAccent">@color/notificacao_tipo_informacao_accent</item>
+        <item name="android:colorBackground">@color/notificacao_tipo_informacao_background</item>
 
         <item name="android:windowContentTransitions">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppThemeRelatorio" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/notificacao_tipo_relatorio_primary</item>
+        <item name="colorPrimaryDark">@color/notificacao_tipo_relatorio_primaryDark</item>
+        <item name="colorAccent">@color/notificacao_tipo_relatorio_accent</item>
+        <item name="android:colorBackground">@color/notificacao_tipo_relatorio_background</item>
+
+        <item name="android:windowContentTransitions">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppThemeErro" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/notificacao_tipo_erro_primary</item>
+        <item name="colorPrimaryDark">@color/notificacao_tipo_erro_primaryDark</item>
+        <item name="colorAccent">@color/notificacao_tipo_erro_accent</item>
+        <item name="android:colorBackground">@color/notificacao_tipo_erro_background</item>
+
+        <item name="android:windowContentTransitions">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppThemeAlerta" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/notificacao_tipo_alerta_primary</item>
+        <item name="colorPrimaryDark">@color/notificacao_tipo_alerta_primaryDark</item>
+        <item name="colorAccent">@color/notificacao_tipo_alerta_accent</item>
+        <item name="android:colorBackground">@color/notificacao_tipo_alerta_background</item>
+
+        <item name="android:windowContentTransitions">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

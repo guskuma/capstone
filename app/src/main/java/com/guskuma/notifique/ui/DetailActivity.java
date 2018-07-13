@@ -30,6 +30,29 @@ public class DetailActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        mNotificacao = Parcels.unwrap(getIntent().getParcelableExtra(ARG_NOTIFICACAO));
+
+        Fragment fragment;
+
+        //Verifica o tipo da notificação e aí gera o fragment adequado
+        switch (mNotificacao.tipo){
+            case TipoNotificacao.INFORMACAO:
+                fragment = DetailActivityFragment.newInstance(mNotificacao);
+                setTheme(R.style.AppThemeInformacao);
+                break;
+            case TipoNotificacao.RELATORIO:
+                fragment = DetailActivityFragment.newInstance(mNotificacao);
+                setTheme(R.style.AppThemeRelatorio);
+                break;
+            case TipoNotificacao.ERRO:
+                fragment = DetailActivityFragment.newInstance(mNotificacao);
+                setTheme(R.style.AppThemeErro);
+                break;
+            default:
+                return;
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
@@ -40,22 +63,7 @@ public class DetailActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        mNotificacao = Parcels.unwrap(getIntent().getParcelableExtra(ARG_NOTIFICACAO));
-
         mTitulo.setText(mNotificacao.titulo);
-
-        Fragment fragment;
-
-        //Verifica o tipo da notificação e aí gera o fragment adequado
-        switch (mNotificacao.tipo){
-            case TipoNotificacao.INFORMACAO:
-            case TipoNotificacao.RELATORIO:
-            case TipoNotificacao.ERRO:
-                fragment = DetailActivityFragment.newInstance(mNotificacao);
-                break;
-            default:
-                return;
-        }
 
         if(fragment != null){
             getSupportFragmentManager().beginTransaction().add(R.id.detailFragmentPlaceHolder, fragment).commit();
@@ -65,7 +73,6 @@ public class DetailActivity extends AppCompatActivity {
             Intent intent = TipoAcao.getActionIntent(mNotificacao.acao, mNotificacao.acao_conteudo);
             startActivity(Intent.createChooser(intent, getResources().getText(R.string.intent_chooser)));
         });
-//        mFab.setBackgroundTintList(ColorStateList.valueOf(TipoNotificacao.getLightColor(this, mNotificacao.tipo)));
         mFab.setImageDrawable(TipoAcao.getDrawable(this, mNotificacao.acao));
 
 

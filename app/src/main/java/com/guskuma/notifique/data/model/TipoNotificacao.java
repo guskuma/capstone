@@ -32,9 +32,10 @@ public class TipoNotificacao {
             case TipoNotificacao.ERRO:
                 return context.getResources().getColor(R.color.notificacao_tipo_erro_primaryDark);
             default:
-                return context.getResources().getColor(R.color.notificacao_tipo_default_primaryDark);
+                return context.getResources().getColor(R.color.colorPrimaryDark);
         }
     }
+
     public static int getLightColor(Context context, final int tipoNotificacao) {
         switch (tipoNotificacao) {
             case TipoNotificacao.INFORMACAO:
@@ -44,7 +45,7 @@ public class TipoNotificacao {
             case TipoNotificacao.ERRO:
                 return context.getResources().getColor(R.color.notificacao_tipo_erro_primary);
             default:
-                return context.getResources().getColor(R.color.notificacao_tipo_default_primary);
+                return context.getResources().getColor(R.color.colorPrimary);
         }
     }
 

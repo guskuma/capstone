@@ -7,22 +7,21 @@
 
     <color name="notificacao_tipo_informacao_primary">#c5e1a5</color>
     <color name="notificacao_tipo_informacao_primaryDark">#94af76</color>
-    <color name="notificacao_tipo_informacao_colorBackground">#f1f8e9</color>
+    <color name="notificacao_tipo_informacao_accent">#c1a5e1</color>
+    <color name="notificacao_tipo_informacao_background">#f1f8e9</color>
 
     <color name="notificacao_tipo_relatorio_primary">#90caf9</color>
     <color name="notificacao_tipo_relatorio_primaryDark">#5d99c6</color>
-    <color name="notificacao_tipo_relatorio_colorBackground">#e3f2fd</color>
+    <color name="notificacao_tipo_relatorio_accent">#f9bf90</color>
+    <color name="notificacao_tipo_relatorio_background">#e3f2fd</color>
 
     <color name="notificacao_tipo_erro_primary">#ef9a9a</color>
     <color name="notificacao_tipo_erro_primaryDark">#ba6b6c</color>
-    <color name="notificacao_tipo_erro_colorBackground">#ffebee</color>
+    <color name="notificacao_tipo_erro_accent">#9aefef</color>
+    <color name="notificacao_tipo_erro_background">#ffebee</color>
 
     <color name="notificacao_tipo_alerta_primary">#ffcc80</color>
     <color name="notificacao_tipo_alerta_primaryDark">#ca9b52</color>
-    <color name="notificacao_tipo_alerta_colorBackground">#fff3e0</color>
-
-
-    <color name="notificacao_tipo_default_primary">#607D8B</color>
-    <color name="notificacao_tipo_default_primaryDark">#455A64</color>
-    <color name="notificacao_tipo_default_colorBackground">#eceff1</color>
+    <color name="notificacao_tipo_alerta_accent">#80b3ff</color>
+    <color name="notificacao_tipo_alerta_background">#fff3e0</color>
 </resources>

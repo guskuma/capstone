@@ -1,0 +1,76 @@
+buildscript {    // Configuration for building
+    repositories {
+        jcenter()    // Bintray's repository - a fast Maven Central mirror & more
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.google.cloud.tools:endpoints-framework-gradle-plugin:1.0.2'
+        classpath 'com.google.cloud.tools:appengine-gradle-plugin:1.3.5'    // Latest 1.x.x release
+    }
+}
+
+repositories {   // repositories for Jar's you access in your code
+    maven {
+        url 'https://maven-central.storage.googleapis.com'
+//        url 'https://oss.sonatype.org/content/repositories/snapshots' // SNAPSHOT repository (if needed)
+    }
+    mavenCentral()
+    jcenter()
+}
+
+def projectId = 'capstone-project-c681e'
+
+apply plugin: 'java'                              // standard Java tasks
+apply plugin: 'war'                               // standard Web Archive plugin
+apply plugin: 'com.google.cloud.tools.endpoints-framework-server'
+apply plugin: 'com.google.cloud.tools.appengine'  // App Engine tasks
+
+
+dependencies {
+    implementation 'com.google.endpoints:endpoints-framework:2.0.13'
+    implementation 'javax.inject:javax.inject:1'
+    implementation 'javax.servlet:servlet-api:2.5'
+    implementation 'com.google.api-client:google-api-client:1.23.0'
+    implementation 'com.google.http-client:google-http-client-android:1.23.0'
+
+    implementation 'com.google.oauth-client:google-oauth-client:1.23.0'
+    implementation 'com.google.oauth-client:google-oauth-client-servlet:1.23.0'
+    implementation 'com.google.oauth-client:google-oauth-client-appengine:1.23.0'
+    implementation 'com.google.oauth-client:google-oauth-client-jetty:1.23.0'
+
+    implementation 'com.google.firebase:firebase-admin:6.4.0'
+    implementation 'com.google.api:api-common:1.7.0'
+
+    implementation project(':notifique-commons')
+}
+
+endpointsServer {
+    // Endpoints Framework Plugin server-side configuration
+    hostname = "${projectId}.appspot.com"
+}
+
+appengine {
+    deploy {   // deploy configuration
+        version = findProperty("appengine.deploy.version")
+        project = findProperty("appengine.deploy.project")
+        def promoteProp = findProperty("appengine.deploy.promote")
+        if (promoteProp != null) {
+            promote = new Boolean(promoteProp)
+        }
+
+//        project = "${projectId}"
+    }
+}
+
+sourceCompatibility = 1.8     // App Engine Flexible uses Java 8
+targetCompatibility = 1.8     // App Engine Flexible uses Java 8
+
+
+task replaceProjectId(type: Copy) {
+    from 'src/main/webapp/WEB-INF/'
+    include '*.xml'
+    into "build/exploded-${archivesBaseName}/WEB-INF"
+    expand(endpoints:[project:[id:projectId]])
+    filteringCharset = 'UTF-8'
+}
+assemble.dependsOn replaceProjectId

@@ -7,7 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import butterknife.BindView;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.guskuma.notifique.R;
 
@@ -16,9 +18,11 @@ import com.guskuma.notifique.R;
  */
 public class MainActivityFragment extends AbstractMainActivityFragment {
 
+
+    @BindView(R.id.adView) AdView mAdView;
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
 
         MobileAds.initialize(getContext(), getString(R.string.admob_app_id));
@@ -26,4 +30,5 @@ public class MainActivityFragment extends AbstractMainActivityFragment {
 
         return view;
     }
+
 }

@@ -15,35 +15,29 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import com.guskuma.notifique.R;
 import com.guskuma.notifique.data.model.Notificacao;
 import com.guskuma.notifique.data.support.NotificacoesAdapter;
 import com.guskuma.notifique.data.support.NotificacoesLoader;
-
 import org.parceler.Parcels;
+import timber.log.Timber;
 
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
-import timber.log.Timber;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class AbstractMainActivityFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<Notificacao>>{
+public class AbstractMainActivityFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<Notificacao>> {
 
     private Unbinder mUnbinder;
     private Loader mLoader;
     private NotificacoesAdapter mAdapter;
 
-    @BindView(R.id.recyclerView) RecyclerView mRecyclerView;
-    @BindView(R.id.adView) AdView mAdView;
+    @BindView(R.id.recyclerView)
+    RecyclerView mRecyclerView;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -59,16 +53,12 @@ public class AbstractMainActivityFragment extends Fragment implements LoaderMana
 
             Pair<View, String> p1 = Pair.create(clickedView, getResources().getString(R.string.transition_name_titulo));
             Pair<View, String> p2 = Pair.create(clickedView, getResources().getString(R.string.transition_name_conteudo));
-            ActivityOptionsCompat options = ActivityOptionsCompat.
-                    makeSceneTransitionAnimation(getActivity(), p1, p2);
+            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), p1, p2);
             startActivity(i, options.toBundle());
         });
 
         mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), getResources().getInteger(R.integer.gridlayout_columns)));
         mRecyclerView.setAdapter(mAdapter);
-
-        MobileAds.initialize(getContext(), getString(R.string.admob_app_id));
-        mAdView.loadAd(new AdRequest.Builder().build());
 
         mLoader = getLoaderManager().initLoader(NotificacoesLoader.ID, null, this);
         loadNotificacoes();
@@ -96,7 +86,7 @@ public class AbstractMainActivityFragment extends Fragment implements LoaderMana
     @Override
     public void onLoadFinished(@NonNull Loader<List<Notificacao>> loader, List<Notificacao> data) {
         mAdapter.setItems(data);
-        //mAdapter.notifyDataSetChanged();
+//        mAdapter.notifyDataSetChanged();
     }
 
     @Override

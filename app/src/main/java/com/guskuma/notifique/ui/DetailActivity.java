@@ -39,15 +39,15 @@ public class DetailActivity extends AppCompatActivity {
         switch (mNotificacao.tipo){
             case TipoNotificacao.INFORMACAO:
                 fragment = DetailActivityFragment.newInstance(mNotificacao);
-                setTheme(R.style.AppThemeInformacao);
+//                setTheme(R.style.AppThemeInformacao);
                 break;
             case TipoNotificacao.RELATORIO:
                 fragment = DetailActivityFragment.newInstance(mNotificacao);
-                setTheme(R.style.AppThemeRelatorio);
+//                setTheme(R.style.AppThemeRelatorio);
                 break;
             case TipoNotificacao.ERRO:
                 fragment = DetailActivityFragment.newInstance(mNotificacao);
-                setTheme(R.style.AppThemeErro);
+//                setTheme(R.style.AppThemeErro);
                 break;
             default:
                 return;

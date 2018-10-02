@@ -1,0 +1,11 @@
+apply plugin: 'java-library'
+
+group "com.guskuma.notifique"
+version "1.0"
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+sourceCompatibility = "8"
+targetCompatibility = "8"

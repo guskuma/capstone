@@ -51,7 +51,7 @@ public class NotificacoesAdapter extends RecyclerView.Adapter<NotificacoesAdapte
         holder.mTitulo.setText(n.titulo);
         holder.mColorIndicator.setBackgroundColor(TipoNotificacao.getColor(mContext, n.tipo));
         holder.mConteudo.setText(n.conteudo);
-        holder.mUltimaAtualizacao.setText("em " + sdf.format(n.ultima_atualizacao));
+        holder.mUltimaAtualizacao.setText(mContext.getString(R.string.em) + sdf.format(n.ultima_atualizacao));
 
         holder.mView.setOnClickListener(view -> {
             if (mListener != null) {

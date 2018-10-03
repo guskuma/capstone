@@ -7,16 +7,13 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
-
-import com.guskuma.notifique.R;
-import com.guskuma.notifique.data.model.Notificacao;
-import com.guskuma.notifique.data.model.TipoAcao;
-import com.guskuma.notifique.data.model.TipoNotificacao;
-
-import org.parceler.Parcels;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.guskuma.notifique.R;
+import com.guskuma.notifique.commons.TipoNotificacao;
+import com.guskuma.notifique.data.NotifiqueHelper;
+import com.guskuma.notifique.data.model.Notificacao;
+import org.parceler.Parcels;
 import timber.log.Timber;
 
 public class DetailActivity extends AppCompatActivity {
@@ -70,10 +67,10 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         mFab.setOnClickListener(view -> {
-            Intent intent = TipoAcao.getActionIntent(mNotificacao.acao, mNotificacao.acao_conteudo);
+            Intent intent = NotifiqueHelper.getActionIntent(mNotificacao.acao, mNotificacao.acao_conteudo);
             startActivity(Intent.createChooser(intent, getResources().getText(R.string.intent_chooser)));
         });
-        mFab.setImageDrawable(TipoAcao.getDrawable(this, mNotificacao.acao));
+        mFab.setImageDrawable(NotifiqueHelper.getDrawable(this, mNotificacao.acao));
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

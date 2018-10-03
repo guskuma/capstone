@@ -4,9 +4,16 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-
 import com.guskuma.notifique.R;
+import com.guskuma.notifique.commons.MessagePayload;
+import com.guskuma.notifique.commons.TipoNotificacao;
+import com.guskuma.notifique.data.AppDatabase;
+import com.guskuma.notifique.data.AppDatabaseHelper;
+import com.guskuma.notifique.data.model.Notificacao;
 import timber.log.Timber;
+
+import java.util.Date;
+import java.util.Random;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
@@ -22,6 +29,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
+        AppDatabase mDb = AppDatabaseHelper.getDb(this.getApplicationContext());
+
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
         Timber.d("From: %s", remoteMessage.getFrom());
 
@@ -29,19 +38,28 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         if (remoteMessage.getData().size() > 0) {
             Timber.d("Message data payload: %s", remoteMessage.getData());
 
-//            if (/* Check if data needs to be processed by long running job */ true) {
-//                // For long-running tasks (10 seconds or more) use Firebase Job Dispatcher.
-//            } else {
-                // Handle message within 10 seconds
-                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
-                        .setSmallIcon(R.drawable.ic_launcher_foreground)
-                        .setContentTitle(remoteMessage.getData().get("titulo"))
-                        .setContentText(remoteMessage.getData().get("texto"))
-                        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+            MessagePayload msg = MessagePayload.getMessagePayload(remoteMessage.getData());
 
-                NotificationManagerCompat.from(this).notify(NOTIFICATION_ID, mBuilder.build());
+            Notificacao n = new Notificacao();
+            n.remote_id = new Random().nextInt();
+            n.tipo = Integer.valueOf(msg.tipo);
+            n.titulo = msg.titulo;
+            n.conteudo = msg.conteudo;
+            n.acao = Integer.valueOf(msg.acao);
+            n.acao_conteudo = msg.acao_conteudo;
+            n.lida = false;
+            n.fixa = false;
+            n.ultima_atualizacao = new Date();
 
-//            }
+            mDb.notificacaoDAO().insert(n);
+
+            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
+                    .setSmallIcon(R.drawable.ic_launcher_foreground)
+                    .setContentTitle(TipoNotificacao.getDescricao(Integer.valueOf(msg.tipo)))
+                    .setContentText(msg.titulo)
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+            NotificationManagerCompat.from(this).notify(NOTIFICATION_ID, mBuilder.build());
 
         }
 

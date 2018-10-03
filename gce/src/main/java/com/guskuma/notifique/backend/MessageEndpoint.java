@@ -13,6 +13,8 @@ import com.google.firebase.messaging.Message;
 import com.guskuma.notifique.commons.MessagePayload;
 
 import java.io.FileInputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 @Api(
         name = "messages",
@@ -43,16 +45,16 @@ public class MessageEndpoint {
     }
 
     @ApiMethod(name = "sendToTopic")
-    public MessagePayload sendToTopic(MessagePayload messagePayload) {
-
-        messagePayload.setNum(messagePayload.getNum() + ", Agora foi!");
+    public Map<String, Object> sendToTopic(MessagePayload messagePayload) {
 
         String topic = "all";
 
+        Map<String, Object> returnValue = new HashMap<>();
+        returnValue.put("data", messagePayload);
+
         // See documentation on defining a messagePayload payload.
         Message msg = Message.builder()
-                .putData("score", "850")
-                .putData("time", "2:45")
+                .putAllData(messagePayload.getData())
                 .setTopic(topic)
                 .build();
 
@@ -63,22 +65,22 @@ public class MessageEndpoint {
 
             // Response is a messagePayload ID string.
             System.out.println("Successfully sent messagePayload: " + response);
+
+            returnValue.put("status", "OK");
+            returnValue.put("FCM-message", response);
+
         } catch (FirebaseMessagingException e) {
             e.printStackTrace();
             System.out.println("Error while sending message: " + e.getMessage());
+            returnValue.put("status", "ERROR");
+            returnValue.put("FCM-message", e.getMessage() + " [" + e.getErrorCode() + "]");
         }
-
-        return messagePayload;
+        return returnValue;
     }
 
     @ApiMethod(name = "message", path = "{n}")
     public MessagePayload getMessage(@Named("n") String n) {
-        return new MessagePayload(n);
-    }
-
-    @ApiMethod(name = "message1")
-    public MessagePayload getMessage1() {
-        return new MessagePayload("Oláááá");
+        return new MessagePayload();
     }
 
 }

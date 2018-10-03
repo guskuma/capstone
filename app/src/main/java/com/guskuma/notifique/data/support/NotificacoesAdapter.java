@@ -7,20 +7,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.guskuma.notifique.R;
+import com.guskuma.notifique.data.NotifiqueHelper;
 import com.guskuma.notifique.data.model.Notificacao;
-import com.guskuma.notifique.data.model.TipoNotificacao;
+import timber.log.Timber;
 
 import java.text.DateFormat;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import timber.log.Timber;
 
 public class NotificacoesAdapter extends RecyclerView.Adapter<NotificacoesAdapter.ViewHolder> {
 
@@ -49,7 +47,7 @@ public class NotificacoesAdapter extends RecyclerView.Adapter<NotificacoesAdapte
         holder.mItem = n;
 
         holder.mTitulo.setText(n.titulo);
-        holder.mColorIndicator.setBackgroundColor(TipoNotificacao.getColor(mContext, n.tipo));
+        holder.mColorIndicator.setBackgroundColor(NotifiqueHelper.getColor(mContext, n.tipo));
         holder.mConteudo.setText(n.conteudo);
         holder.mUltimaAtualizacao.setText(mContext.getString(R.string.em) + sdf.format(n.ultima_atualizacao));
 

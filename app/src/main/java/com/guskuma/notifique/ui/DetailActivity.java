@@ -27,8 +27,24 @@ public class DetailActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_detail);
+        ButterKnife.bind(this);
+        Timber.plant(new Timber.DebugTree());
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        mNotificacao = Parcels.unwrap(getIntent().getParcelableExtra(ARG_NOTIFICACAO));
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        Intent intent = getIntent();
+
+        if (setFragment(intent)) return;
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    private boolean setFragment(Intent intent) {
+        mNotificacao = Parcels.unwrap(intent.getParcelableExtra(ARG_NOTIFICACAO));
 
         Fragment fragment;
 
@@ -47,35 +63,26 @@ public class DetailActivity extends AppCompatActivity {
 //                setTheme(R.style.AppThemeErro);
                 break;
             default:
-                return;
+                return true;
         }
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
-        ButterKnife.bind(this);
-        Timber.plant(new Timber.DebugTree());
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         mTitulo.setText(mNotificacao.titulo);
 
         if(fragment != null){
-            getSupportFragmentManager().beginTransaction().add(R.id.detailFragmentPlaceHolder, fragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.detailFragmentPlaceHolder, fragment).commit();
         }
 
         mFab.setOnClickListener(view -> {
-            Intent intent = NotifiqueHelper.getActionIntent(mNotificacao.acao, mNotificacao.acao_conteudo);
-            startActivity(Intent.createChooser(intent, getResources().getText(R.string.intent_chooser)));
+            Intent actionIntent = NotifiqueHelper.getActionIntent(mNotificacao.acao, mNotificacao.acao_conteudo);
+            startActivity(Intent.createChooser(actionIntent, getResources().getText(R.string.intent_chooser)));
         });
         mFab.setImageDrawable(NotifiqueHelper.getDrawable(this, mNotificacao.acao));
-
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        return false;
     }
 
-
-
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setFragment(intent);
+    }
 }

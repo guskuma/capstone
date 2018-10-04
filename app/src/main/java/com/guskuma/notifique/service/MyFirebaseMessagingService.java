@@ -1,7 +1,11 @@
 package com.guskuma.notifique.service;
 
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
+import android.support.v4.app.TaskStackBuilder;
+import android.support.v4.content.LocalBroadcastManager;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.guskuma.notifique.R;
@@ -10,6 +14,8 @@ import com.guskuma.notifique.commons.TipoNotificacao;
 import com.guskuma.notifique.data.AppDatabase;
 import com.guskuma.notifique.data.AppDatabaseHelper;
 import com.guskuma.notifique.data.model.Notificacao;
+import com.guskuma.notifique.ui.DetailActivity;
+import org.parceler.Parcels;
 import timber.log.Timber;
 
 import java.util.Date;
@@ -19,6 +25,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     public static final String NOTIFICATION_CHANNEL_ID = "654198498";
     static final int NOTIFICATION_ID = 654654694;
+    static final int PENDING_INTENT_REQUEST_CODE = 34252342;
+    public static final String BROADCAST_NOVA_NOTIFICACAO = "EHEHEHE";
+    public static final String BROADCAST_NOVA_NOTIFICACAO_ENTIDADE = "BROADCAST_NOVA_NOTIFICACAO_ENTIDADE";
 
     @Override
     public void onCreate() {
@@ -40,26 +49,39 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             MessagePayload msg = MessagePayload.getMessagePayload(remoteMessage.getData());
 
-            Notificacao n = new Notificacao();
-            n.remote_id = new Random().nextInt();
-            n.tipo = Integer.valueOf(msg.tipo);
-            n.titulo = msg.titulo;
-            n.conteudo = msg.conteudo;
-            n.acao = Integer.valueOf(msg.acao);
-            n.acao_conteudo = msg.acao_conteudo;
-            n.lida = false;
-            n.fixa = false;
-            n.ultima_atualizacao = new Date();
+            Notificacao notificacao = new Notificacao();
+            notificacao.remote_id = new Random().nextInt();
+            notificacao.tipo = Integer.valueOf(msg.tipo);
+            notificacao.titulo = msg.titulo;
+            notificacao.conteudo = msg.conteudo;
+            notificacao.acao = Integer.valueOf(msg.acao);
+            notificacao.acao_conteudo = msg.acao_conteudo;
+            notificacao.lida = false;
+            notificacao.fixa = false;
+            notificacao.ultima_atualizacao = new Date();
 
-            mDb.notificacaoDAO().insert(n);
+            mDb.notificacaoDAO().insert(notificacao);
+
+            Intent intent = new Intent(this, DetailActivity.class);
+            intent.putExtra(DetailActivity.ARG_NOTIFICACAO, Parcels.wrap(notificacao));
+
+            TaskStackBuilder stackBuilder = TaskStackBuilder.create(this).addNextIntentWithParentStack(intent);
+
+            PendingIntent pendingIntent = stackBuilder.getPendingIntent(PENDING_INTENT_REQUEST_CODE, PendingIntent.FLAG_UPDATE_CURRENT);
 
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_launcher_foreground)
                     .setContentTitle(TipoNotificacao.getDescricao(Integer.valueOf(msg.tipo)))
                     .setContentText(msg.titulo)
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                    .setContentIntent(pendingIntent);
+//                    .setAutoCancel(true);
 
             NotificationManagerCompat.from(this).notify(NOTIFICATION_ID, mBuilder.build());
+
+            Intent broadcastIntent = new Intent(BROADCAST_NOVA_NOTIFICACAO);
+            broadcastIntent.putExtra(BROADCAST_NOVA_NOTIFICACAO_ENTIDADE, Parcels.wrap(notificacao));
+            LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(broadcastIntent);
 
         }
 

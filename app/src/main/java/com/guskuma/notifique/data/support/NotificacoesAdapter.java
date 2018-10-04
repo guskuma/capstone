@@ -49,7 +49,7 @@ public class NotificacoesAdapter extends RecyclerView.Adapter<NotificacoesAdapte
         holder.mTitulo.setText(n.titulo);
         holder.mColorIndicator.setBackgroundColor(NotifiqueHelper.getColor(mContext, n.tipo));
         holder.mConteudo.setText(n.conteudo);
-        holder.mUltimaAtualizacao.setText(mContext.getString(R.string.em) + sdf.format(n.ultima_atualizacao));
+        holder.mUltimaAtualizacao.setText(mContext.getString(R.string.em, sdf.format(n.ultima_atualizacao)));
 
         holder.mView.setOnClickListener(view -> {
             if (mListener != null) {
@@ -94,8 +94,15 @@ public class NotificacoesAdapter extends RecyclerView.Adapter<NotificacoesAdapte
         mValues.addAll(items);
     }
 
+    public int addItem(Notificacao notificacao){
+        mValues.add(0, notificacao);
+        return mValues.size() - 1;
+    }
+
     public interface NotificacaoInteractionListener {
         void onItemClick(View view, Notificacao item);
     }
+
+
 
 }

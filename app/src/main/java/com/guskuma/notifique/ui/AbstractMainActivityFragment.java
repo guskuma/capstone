@@ -1,7 +1,10 @@
 package com.guskuma.notifique.ui;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,6 +12,7 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +26,7 @@ import com.guskuma.notifique.R;
 import com.guskuma.notifique.data.model.Notificacao;
 import com.guskuma.notifique.data.support.NotificacoesAdapter;
 import com.guskuma.notifique.data.support.NotificacoesLoader;
+import com.guskuma.notifique.service.MyFirebaseMessagingService;
 import org.parceler.Parcels;
 import timber.log.Timber;
 
@@ -35,6 +40,7 @@ public class AbstractMainActivityFragment extends Fragment implements LoaderMana
     private Unbinder mUnbinder;
     private Loader mLoader;
     private NotificacoesAdapter mAdapter;
+    private BroadcastReceiver mReceiver;
 
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
@@ -61,13 +67,32 @@ public class AbstractMainActivityFragment extends Fragment implements LoaderMana
         mRecyclerView.setAdapter(mAdapter);
 
         mLoader = getLoaderManager().initLoader(NotificacoesLoader.ID, null, this);
-        loadNotificacoes();
+        mLoader.forceLoad();
+
+        mReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+
+                Notificacao notificacao = Parcels.unwrap(intent.getParcelableExtra(MyFirebaseMessagingService.BROADCAST_NOVA_NOTIFICACAO_ENTIDADE));
+                int index = mAdapter.addItem(notificacao);
+                mAdapter.notifyItemInserted(index);
+                mAdapter.notifyDataSetChanged();
+            }
+        };
 
         return view;
     }
 
-    private void loadNotificacoes() {
-        mLoader.forceLoad();
+    @Override
+    public void onResume() {
+        super.onResume();
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(mReceiver, new IntentFilter(MyFirebaseMessagingService.BROADCAST_NOVA_NOTIFICACAO));
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(mReceiver);
     }
 
     @Override
@@ -75,7 +100,6 @@ public class AbstractMainActivityFragment extends Fragment implements LoaderMana
         super.onDestroyView();
         mUnbinder.unbind();
     }
-
 
     @NonNull
     @Override
@@ -86,7 +110,6 @@ public class AbstractMainActivityFragment extends Fragment implements LoaderMana
     @Override
     public void onLoadFinished(@NonNull Loader<List<Notificacao>> loader, List<Notificacao> data) {
         mAdapter.setItems(data);
-//        mAdapter.notifyDataSetChanged();
     }
 
     @Override

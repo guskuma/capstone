@@ -6,7 +6,7 @@
     <string name="transition_name_titulo">titulo</string>
     <string name="transition_name_conteudo">conteudo</string>
     <string name="intent_chooser">Compartilhar notificação</string>
-    <string name="em">em </string>
+    <string name="em">em %1$s</string>
     <string name="channel_name">Notifique</string>
     <string name="channel_description">Notificações do aplicativo Notifique</string>
 </resources>

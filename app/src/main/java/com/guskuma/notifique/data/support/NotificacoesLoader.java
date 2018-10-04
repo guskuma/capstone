@@ -12,7 +12,6 @@ import java.util.List;
 public class NotificacoesLoader extends AsyncTaskLoader<List<Notificacao>> {
 
     public static final int ID = 89345873;
-    private final int ITEMS_TO_CREATE = 20;
 
     public NotificacoesLoader(@NonNull Context context) {
         super(context);

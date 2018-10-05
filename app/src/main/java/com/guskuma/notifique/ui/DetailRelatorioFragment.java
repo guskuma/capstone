@@ -2,37 +2,32 @@ package com.guskuma.notifique.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.guskuma.notifique.R;
-import com.guskuma.notifique.data.model.Notificacao;
-
-import org.parceler.Parcels;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import com.guskuma.notifique.R;
+import com.guskuma.notifique.data.model.Notificacao;
+import org.parceler.Parcels;
 import timber.log.Timber;
 
-/**
- * A placeholder fragment containing a simple view.
- */
-public class DetailActivityFragment extends Fragment {
+public class DetailRelatorioFragment extends Fragment {
 
     private Unbinder mUnbinder;
     private Notificacao mNotificacao;
 
-    @BindView(R.id.conteudo) public TextView mConteudo;
-//    @BindView(R.id.ultimaAtualizacao) public TextView mUltimaAtualizacao;
-//    @BindView(R.id.colorIndicator) public View mColorIndicator;
+    @BindView(R.id.conteudo)
+    public TextView mConteudo;
 
-    public DetailActivityFragment() { }
+    public DetailRelatorioFragment() {
+    }
 
-    public static DetailActivityFragment newInstance(Notificacao notificacao) {
-        DetailActivityFragment fragment = new DetailActivityFragment();
+    public static DetailRelatorioFragment newInstance(Notificacao notificacao) {
+        DetailRelatorioFragment fragment = new DetailRelatorioFragment();
         Bundle args = new Bundle();
         args.putParcelable(DetailActivity.ARG_NOTIFICACAO, Parcels.wrap(notificacao));
         fragment.setArguments(args);
@@ -47,7 +42,7 @@ public class DetailActivityFragment extends Fragment {
         Timber.plant(new Timber.DebugTree());
 
         mNotificacao = Parcels.unwrap(getArguments().getParcelable(DetailActivity.ARG_NOTIFICACAO));
-        mConteudo.setText(mNotificacao.conteudo);
+        mConteudo.setText(Html.fromHtml(mNotificacao.conteudo));
 
         return view;
     }

@@ -51,15 +51,15 @@ public class DetailActivity extends AppCompatActivity {
         //Verifica o tipo da notificação e aí gera o fragment adequado
         switch (mNotificacao.tipo){
             case TipoNotificacao.INFORMACAO:
-                fragment = DetailActivityFragment.newInstance(mNotificacao);
+                fragment = DetailInformacaoFragment.newInstance(mNotificacao);
 //                setTheme(R.style.AppThemeInformacao);
                 break;
             case TipoNotificacao.RELATORIO:
-                fragment = DetailActivityFragment.newInstance(mNotificacao);
+                fragment = DetailRelatorioFragment.newInstance(mNotificacao);
 //                setTheme(R.style.AppThemeRelatorio);
                 break;
             case TipoNotificacao.ERRO:
-                fragment = DetailActivityFragment.newInstance(mNotificacao);
+                fragment = DetailInformacaoFragment.newInstance(mNotificacao);
 //                setTheme(R.style.AppThemeErro);
                 break;
             default:

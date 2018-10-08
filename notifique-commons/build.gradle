@@ -4,6 +4,7 @@ group "com.guskuma.notifique"
 version "1.0"
 
 dependencies {
+    implementation 'com.google.code.gson:gson:2.8.5'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 }
 

@@ -53,7 +53,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             notificacao.remote_id = new Random().nextInt();
             notificacao.tipo = Integer.valueOf(msg.tipo);
             notificacao.titulo = msg.titulo;
-            notificacao.conteudo = msg.conteudo;
+            notificacao.conteudo = msg.conteudo_informacao;
             notificacao.acao = Integer.valueOf(msg.acao);
             notificacao.acao_conteudo = msg.acao_conteudo;
             notificacao.lida = false;

@@ -38,7 +38,7 @@ public class DetailInformacaoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_detail, container, false);
+        View view = inflater.inflate(R.layout.fragment_detail_informacao, container, false);
         mUnbinder = ButterKnife.bind(this, view);
         Timber.plant(new Timber.DebugTree());
 

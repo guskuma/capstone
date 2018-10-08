@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/conteudo"
+        android:transitionName="conteudo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="@dimen/default_detail_margin_vert"
+        android:layout_marginStart="@dimen/default_detail_margin_horiz"
+        android:layout_marginEnd="@dimen/default_detail_margin_horiz"
+        android:layout_marginBottom="@dimen/default_detail_margin_vert"
+        tools:text="Mauris vel arcu vel ex mollis iaculis. Suspendisse potenti. Phasellus in ex enim. In pellentesque ante in nulla aliquet tempus. Nunc sed ipsum metus. Curabitur vitae eros non libero mollis iaculis. Proin tristique eleifend egestas. Donec justo mauris, tempor in sem a, imperdiet suscipit dui. Pellentesque rhoncus imperdiet arcu quis dapibus. Maecenas dolor leo, imperdiet nec aliquet sit amet, gravida at mi. Nullam tincidunt mauris ac nunc interdum, eu volutpat velit aliquam."
+        />
+</android.support.constraint.ConstraintLayout>

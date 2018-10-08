@@ -1,8 +1,8 @@
 package com.guskuma.notifique.ui;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +10,22 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.gson.Gson;
 import com.guskuma.notifique.R;
+import com.guskuma.notifique.commons.ConteudoRelatorio;
+import com.guskuma.notifique.commons.ConteudoRelatorioDetalheGrafico;
 import com.guskuma.notifique.data.model.Notificacao;
 import org.parceler.Parcels;
 import timber.log.Timber;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DetailRelatorioFragment extends Fragment {
 
@@ -22,6 +34,9 @@ public class DetailRelatorioFragment extends Fragment {
 
     @BindView(R.id.conteudo)
     public TextView mConteudo;
+
+    @BindView(R.id.pieChart)
+    public PieChart mChart;
 
     public DetailRelatorioFragment() {
     }
@@ -37,12 +52,75 @@ public class DetailRelatorioFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_detail, container, false);
+        View view = inflater.inflate(R.layout.fragment_detail_relatorio, container, false);
         mUnbinder = ButterKnife.bind(this, view);
         Timber.plant(new Timber.DebugTree());
 
         mNotificacao = Parcels.unwrap(getArguments().getParcelable(DetailActivity.ARG_NOTIFICACAO));
-        mConteudo.setText(Html.fromHtml(mNotificacao.conteudo));
+
+        ConteudoRelatorio relatorio = new Gson().fromJson(mNotificacao.conteudo, ConteudoRelatorio.class);
+        mConteudo.setText(relatorio.conteudo);
+
+        mChart.setUsePercentValues(true);
+        mChart.getDescription().setEnabled(false);
+        mChart.setExtraOffsets(5, 10, 5, 5);
+
+        mChart.setDragDecelerationFrictionCoef(0.95f);
+
+        mChart.setDrawHoleEnabled(true);
+        mChart.setHoleColor(Color.WHITE);
+
+        mChart.setTransparentCircleColor(Color.WHITE);
+        mChart.setTransparentCircleAlpha(110);
+
+        mChart.setHoleRadius(58f);
+        mChart.setTransparentCircleRadius(61f);
+
+        mChart.setDrawCenterText(true);
+
+        mChart.setRotationAngle(0);
+        // enable rotation of the chart by touch
+        mChart.setRotationEnabled(true);
+        mChart.setHighlightPerTapEnabled(true);
+
+
+        mChart.setEntryLabelColor(Color.WHITE);
+        mChart.setEntryLabelTextSize(12f);
+
+        List<PieEntry> entries = new ArrayList<>();
+        for (ConteudoRelatorioDetalheGrafico detalhe : relatorio.detalheGrafico) {
+            entries.add(new PieEntry(detalhe.porcentagem, detalhe.rotulo));
+        }
+
+        PieDataSet dataSet = new PieDataSet(entries, relatorio.tituloGrafico);
+
+        ArrayList<Integer> colors = new ArrayList<Integer>();
+
+        for (int c : ColorTemplate.VORDIPLOM_COLORS)
+            colors.add(c);
+
+        for (int c : ColorTemplate.JOYFUL_COLORS)
+            colors.add(c);
+
+        for (int c : ColorTemplate.COLORFUL_COLORS)
+            colors.add(c);
+
+        for (int c : ColorTemplate.LIBERTY_COLORS)
+            colors.add(c);
+
+        for (int c : ColorTemplate.PASTEL_COLORS)
+            colors.add(c);
+
+        colors.add(ColorTemplate.getHoloBlue());
+
+        dataSet.setColors(colors);
+
+        PieData data = new PieData(dataSet);
+
+        data.setValueFormatter(new PercentFormatter());
+        data.setValueTextSize(11f);
+        data.setValueTextColor(Color.WHITE);
+        mChart.setData(data);
 
         return view;
     }

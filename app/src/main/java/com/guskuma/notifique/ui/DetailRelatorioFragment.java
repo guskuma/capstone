@@ -67,7 +67,7 @@ public class DetailRelatorioFragment extends Fragment {
 
         mChart.setDragDecelerationFrictionCoef(0.95f);
 
-        mChart.setDrawHoleEnabled(true);
+        mChart.setDrawHoleEnabled(false);
         mChart.setHoleColor(Color.WHITE);
 
         mChart.setTransparentCircleColor(Color.WHITE);
@@ -88,26 +88,13 @@ public class DetailRelatorioFragment extends Fragment {
         mChart.setEntryLabelTextSize(12f);
 
         List<PieEntry> entries = new ArrayList<>();
-        for (ConteudoRelatorioDetalheGrafico detalhe : relatorio.detalheGrafico) {
+        for (ConteudoRelatorioDetalheGrafico detalhe : relatorio.detalhe_grafico) {
             entries.add(new PieEntry(detalhe.porcentagem, detalhe.rotulo));
         }
 
-        PieDataSet dataSet = new PieDataSet(entries, relatorio.tituloGrafico);
+        PieDataSet dataSet = new PieDataSet(entries, relatorio.titulo_grafico);
 
         ArrayList<Integer> colors = new ArrayList<Integer>();
-
-        for (int c : ColorTemplate.VORDIPLOM_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.JOYFUL_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.COLORFUL_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.LIBERTY_COLORS)
-            colors.add(c);
-
         for (int c : ColorTemplate.PASTEL_COLORS)
             colors.add(c);
 

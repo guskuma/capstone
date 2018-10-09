@@ -8,6 +8,7 @@ import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.LocalBroadcastManager;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.google.gson.Gson;
 import com.guskuma.notifique.R;
 import com.guskuma.notifique.commons.MessagePayload;
 import com.guskuma.notifique.commons.TipoNotificacao;
@@ -53,12 +54,23 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             notificacao.remote_id = new Random().nextInt();
             notificacao.tipo = Integer.valueOf(msg.tipo);
             notificacao.titulo = msg.titulo;
-            notificacao.conteudo = msg.conteudo_informacao;
             notificacao.acao = Integer.valueOf(msg.acao);
             notificacao.acao_conteudo = msg.acao_conteudo;
             notificacao.lida = false;
             notificacao.fixa = false;
             notificacao.ultima_atualizacao = new Date();
+
+            switch (notificacao.tipo){
+                case TipoNotificacao.INFORMACAO:
+                    notificacao.conteudo = msg.conteudo_informacao;
+                    break;
+                case TipoNotificacao.RELATORIO:
+                    notificacao.conteudo = new Gson().toJson(msg.conteudo_relatorio);
+                    break;
+                case TipoNotificacao.ERRO:
+                    notificacao.conteudo = msg.conteudo_erro;
+                    break;
+            }
 
             mDb.notificacaoDAO().insert(notificacao);
 

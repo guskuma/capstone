@@ -79,10 +79,8 @@ public class DetailRelatorioFragment extends Fragment {
         mChart.setDrawCenterText(true);
 
         mChart.setRotationAngle(0);
-        // enable rotation of the chart by touch
         mChart.setRotationEnabled(true);
         mChart.setHighlightPerTapEnabled(true);
-
 
         mChart.setEntryLabelColor(Color.WHITE);
         mChart.setEntryLabelTextSize(12f);
@@ -92,7 +90,7 @@ public class DetailRelatorioFragment extends Fragment {
             entries.add(new PieEntry(detalhe.porcentagem, detalhe.rotulo));
         }
 
-        PieDataSet dataSet = new PieDataSet(entries, relatorio.titulo_grafico);
+        PieDataSet dataSet = new PieDataSet(entries, "");
 
         ArrayList<Integer> colors = new ArrayList<Integer>();
         for (int c : ColorTemplate.PASTEL_COLORS)

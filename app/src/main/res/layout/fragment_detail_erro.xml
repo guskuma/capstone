@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <TextView
+            android:id="@+id/causaErroLabel"
+            android:transitionName="conteudo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="@id/causaErro"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            android:layout_marginTop="@dimen/default_detail_margin_vert"
+            android:layout_marginStart="@dimen/default_detail_margin_horiz"
+            android:layout_marginEnd="@dimen/default_detail_margin_horiz"
+            android:text="@string/causa_do_erro" />
+    <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="163dp" android:id="@+id/causaErro"/>
+</android.support.constraint.ConstraintLayout>

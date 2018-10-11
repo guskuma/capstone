@@ -62,10 +62,6 @@ public class MessageEndpoint {
         String response = null;
         try {
             response = FirebaseMessaging.getInstance().send(msg);
-
-            // Response is a messagePayload ID string.
-            System.out.println("Successfully sent messagePayload: " + response);
-
             returnValue.put("status", "OK");
             returnValue.put("FCM-message", response);
 

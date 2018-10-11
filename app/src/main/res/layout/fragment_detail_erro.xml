@@ -10,18 +10,53 @@
             android:id="@+id/causaErroLabel"
             android:transitionName="conteudo"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="@id/causaErro"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-
+            app:layout_constraintBottom_toTopOf="@id/causaErro"
             android:layout_marginTop="@dimen/default_detail_margin_vert"
             android:layout_marginStart="@dimen/default_detail_margin_horiz"
             android:layout_marginEnd="@dimen/default_detail_margin_horiz"
-            android:text="@string/causa_do_erro" />
+            android:text="@string/causa_do_erro"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
     <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
+            android:id="@+id/causaErro"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:layout_editor_absoluteX="163dp" android:id="@+id/causaErro"/>
+            app:layout_constraintTop_toBottomOf="@id/causaErroLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/detalheErroLabel"
+            android:layout_marginTop="@dimen/default_detail_margin_vert"
+            android:layout_marginStart="@dimen/default_detail_margin_horiz"
+            android:layout_marginEnd="@dimen/default_detail_margin_horiz"
+            tools:text="NullpointerException"/>
+
+    <TextView
+            android:id="@+id/detalheErroLabel"
+            android:transitionName="conteudo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/causaErro"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/detalheErro"
+            android:layout_marginTop="@dimen/default_detail_margin_vert"
+            android:layout_marginStart="@dimen/default_detail_margin_horiz"
+            android:layout_marginEnd="@dimen/default_detail_margin_horiz"
+            android:text="@string/mais_info"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
+
+    <TextView
+            android:id="@+id/detalheErro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/detalheErroLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/default_detail_margin_vert"
+            android:layout_marginStart="@dimen/default_detail_margin_horiz"
+            android:layout_marginEnd="@dimen/default_detail_margin_horiz"
+            tools:text="ConteudoRelatorioDetalheGrafico.toString(line 23)"/>
 </android.support.constraint.ConstraintLayout>

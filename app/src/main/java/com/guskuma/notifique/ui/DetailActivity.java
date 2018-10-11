@@ -59,7 +59,7 @@ public class DetailActivity extends AppCompatActivity {
 //                setTheme(R.style.AppThemeRelatorio);
                 break;
             case TipoNotificacao.ERRO:
-                fragment = DetailInformacaoFragment.newInstance(mNotificacao);
+                fragment = DetailErroFragment.newInstance(mNotificacao);
 //                setTheme(R.style.AppThemeErro);
                 break;
             default:
@@ -81,9 +81,8 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
+    public void onBackPressed() {
+        onSupportNavigateUp();
     }
 
     @Override

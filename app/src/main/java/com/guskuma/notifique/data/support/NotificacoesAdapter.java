@@ -3,13 +3,18 @@ package com.guskuma.notifique.data.support;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.gson.Gson;
 import com.guskuma.notifique.R;
+import com.guskuma.notifique.commons.ConteudoErro;
+import com.guskuma.notifique.commons.ConteudoRelatorio;
+import com.guskuma.notifique.commons.TipoNotificacao;
 import com.guskuma.notifique.data.NotifiqueHelper;
 import com.guskuma.notifique.data.model.Notificacao;
 import timber.log.Timber;
@@ -48,8 +53,21 @@ public class NotificacoesAdapter extends RecyclerView.Adapter<NotificacoesAdapte
 
         holder.mTitulo.setText(n.titulo);
         holder.mColorIndicator.setBackgroundColor(NotifiqueHelper.getColor(mContext, n.tipo));
-        holder.mConteudo.setText(n.conteudo);
         holder.mUltimaAtualizacao.setText(mContext.getString(R.string.em, sdf.format(n.ultima_atualizacao)));
+
+        switch (n.tipo){
+            case TipoNotificacao.INFORMACAO:
+                holder.mConteudo.setText(Html.fromHtml(n.conteudo));
+                break;
+            case TipoNotificacao.RELATORIO:
+                ConteudoRelatorio conteudoRelatorio = new Gson().fromJson(n.conteudo, ConteudoRelatorio.class);
+                holder.mConteudo.setText(conteudoRelatorio.conteudo);
+                break;
+            case TipoNotificacao.ERRO:
+                ConteudoErro conteudoErro = new Gson().fromJson(n.conteudo, ConteudoErro.class);
+                holder.mConteudo.setText(mContext.getString(R.string.erro_causado_por, conteudoErro.causa_erro));
+                break;
+        }
 
         holder.mView.setOnClickListener(view -> {
             if (mListener != null) {
@@ -95,8 +113,8 @@ public class NotificacoesAdapter extends RecyclerView.Adapter<NotificacoesAdapte
     }
 
     public int addItem(Notificacao notificacao){
-        mValues.add(0, notificacao);
-        return mValues.size() - 1;
+        mValues.add(0,notificacao);
+        return 0;
     }
 
     public interface NotificacaoInteractionListener {

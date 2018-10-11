@@ -1,6 +1,7 @@
 package com.guskuma.notifique.service;
 
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
@@ -22,13 +23,16 @@ import timber.log.Timber;
 import java.util.Date;
 import java.util.Random;
 
+import static com.guskuma.notifique.commons.TipoNotificacao.INFORMACAO;
+
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     public static final String NOTIFICATION_CHANNEL_ID = "654198498";
-    static final int NOTIFICATION_ID = 654654694;
-    static final int PENDING_INTENT_REQUEST_CODE = 34252342;
-    public static final String BROADCAST_NOVA_NOTIFICACAO = "EHEHEHE";
+    private static final int NOTIFICATION_ID = 654654694;
+    private static final int PENDING_INTENT_REQUEST_CODE = 34252342;
+    public static final String BROADCAST_NOVA_NOTIFICACAO = "BROADCAST_NOVA_NOTIFICACAO";
     public static final String BROADCAST_NOVA_NOTIFICACAO_ENTIDADE = "BROADCAST_NOVA_NOTIFICACAO_ENTIDADE";
+    private final Gson gson = new Gson();
 
     @Override
     public void onCreate() {
@@ -61,14 +65,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             notificacao.ultima_atualizacao = new Date();
 
             switch (notificacao.tipo){
-                case TipoNotificacao.INFORMACAO:
+                case INFORMACAO:
                     notificacao.conteudo = msg.conteudo_informacao;
                     break;
                 case TipoNotificacao.RELATORIO:
-                    notificacao.conteudo = new Gson().toJson(msg.conteudo_relatorio);
+                    notificacao.conteudo = gson.toJson(msg.conteudo_relatorio);
                     break;
                 case TipoNotificacao.ERRO:
-                    notificacao.conteudo = msg.conteudo_erro;
+                    notificacao.conteudo = gson.toJson(msg.conteudo_erro);
                     break;
             }
 
@@ -83,11 +87,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_launcher_foreground)
-                    .setContentTitle(TipoNotificacao.getDescricao(Integer.valueOf(msg.tipo)))
+                    .setContentTitle(getNotificacaoDescricao(Integer.valueOf(msg.tipo), getApplicationContext()))
                     .setContentText(msg.titulo)
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                    .setContentIntent(pendingIntent);
-//                    .setAutoCancel(true);
+                    .setContentIntent(pendingIntent)
+                    .setAutoCancel(true);
 
             NotificationManagerCompat.from(this).notify(NOTIFICATION_ID, mBuilder.build());
 
@@ -96,13 +100,18 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(broadcastIntent);
 
         }
+    }
 
-        // Check if message contains a notification payload.
-        if (remoteMessage.getNotification() != null) {
-            Timber.d("Message Notification Body: %s", remoteMessage.getNotification().getBody());
+    public static String getNotificacaoDescricao(final int tipoNotificacao, Context context){
+        switch (tipoNotificacao){
+            case TipoNotificacao.INFORMACAO:
+                return context.getString(R.string.notification_type_info);
+            case TipoNotificacao.RELATORIO:
+                return context.getString(R.string.notification_type_report);
+            case TipoNotificacao.ERRO:
+                return context.getString(R.string.notification_type_warning);
+            default:
+                return context.getString(R.string.notification_type_unknown);
         }
-
-        // Also if you intend on generating your own notifications as a result of a received FCM
-        // message, here is where that should be initiated. See sendNotification method below.
     }
 }

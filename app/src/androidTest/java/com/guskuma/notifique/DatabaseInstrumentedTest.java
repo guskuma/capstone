@@ -5,7 +5,6 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import com.guskuma.notifique.commons.TipoAcao;
-import com.guskuma.notifique.commons.TipoNotificacao;
 import com.guskuma.notifique.data.AppDatabase;
 import com.guskuma.notifique.data.dao.NotificacaoDAO;
 import com.guskuma.notifique.data.model.Notificacao;
@@ -87,7 +86,7 @@ public class DatabaseInstrumentedTest {
         Notificacao n = new Notificacao();
         n.remote_id = id;
         n.tipo = tipoNotificacao;
-        n.titulo = TipoNotificacao.getDescricao(tipoNotificacao) + " " + id;
+        n.titulo = "Notificacao ID " + id;
         n.conteudo = conteudos.get(new Random().nextInt(conteudos.size()));
         n.acao = tipoAcao;
         n.acao_conteudo = getConteudoAcao(tipoAcao);

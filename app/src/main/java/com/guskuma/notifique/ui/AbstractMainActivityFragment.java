@@ -67,12 +67,10 @@ public class AbstractMainActivityFragment extends Fragment implements LoaderMana
         mRecyclerView.setAdapter(mAdapter);
 
         mLoader = getLoaderManager().initLoader(NotificacoesLoader.ID, null, this);
-        mLoader.forceLoad();
 
         mReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-
                 Notificacao notificacao = Parcels.unwrap(intent.getParcelableExtra(MyFirebaseMessagingService.BROADCAST_NOVA_NOTIFICACAO_ENTIDADE));
                 int index = mAdapter.addItem(notificacao);
                 mAdapter.notifyItemInserted(index);
@@ -86,6 +84,7 @@ public class AbstractMainActivityFragment extends Fragment implements LoaderMana
     @Override
     public void onResume() {
         super.onResume();
+        mLoader.forceLoad();
         LocalBroadcastManager.getInstance(getContext()).registerReceiver(mReceiver, new IntentFilter(MyFirebaseMessagingService.BROADCAST_NOVA_NOTIFICACAO));
     }
 
@@ -110,6 +109,7 @@ public class AbstractMainActivityFragment extends Fragment implements LoaderMana
     @Override
     public void onLoadFinished(@NonNull Loader<List<Notificacao>> loader, List<Notificacao> data) {
         mAdapter.setItems(data);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override

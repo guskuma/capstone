@@ -20,7 +20,6 @@ public class NotificacoesLoader extends AsyncTaskLoader<List<Notificacao>> {
     @Override
     public List<Notificacao> loadInBackground() {
         AppDatabase mDb = AppDatabaseHelper.getDb(getContext());
-
         return mDb.notificacaoDAO().getAllOrdered();
     }
 

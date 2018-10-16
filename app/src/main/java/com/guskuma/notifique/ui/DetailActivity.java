@@ -19,6 +19,7 @@ import timber.log.Timber;
 public class DetailActivity extends AppCompatActivity {
 
     public static final String ARG_NOTIFICACAO = "NotificacaoEntity";
+    public static final String ARG_SET_TITLE = "SetTitle?";
 
     @BindView(R.id.titulo) public TextView mTitulo;
     @BindView(R.id.fab) FloatingActionButton mFab;
@@ -51,16 +52,16 @@ public class DetailActivity extends AppCompatActivity {
         //Verifica o tipo da notificação e aí gera o fragment adequado
         switch (mNotificacao.tipo){
             case TipoNotificacao.INFORMACAO:
-                fragment = DetailInformacaoFragment.newInstance(mNotificacao);
-//                setTheme(R.style.AppThemeInformacao);
+                fragment = DetailInformacaoFragment.newInstance(mNotificacao, false);
+                setTheme(R.style.AppThemeInformacao);
                 break;
             case TipoNotificacao.RELATORIO:
-                fragment = DetailRelatorioFragment.newInstance(mNotificacao);
-//                setTheme(R.style.AppThemeRelatorio);
+                fragment = DetailRelatorioFragment.newInstance(mNotificacao, false);
+                setTheme(R.style.AppThemeRelatorio);
                 break;
             case TipoNotificacao.ERRO:
-                fragment = DetailErroFragment.newInstance(mNotificacao);
-//                setTheme(R.style.AppThemeErro);
+                fragment = DetailErroFragment.newInstance(mNotificacao, false);
+                setTheme(R.style.AppThemeErro);
                 break;
             default:
                 return true;

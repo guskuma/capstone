@@ -7,11 +7,26 @@
     android:layout_height="match_parent">
 
     <TextView
+            android:id="@+id/detailTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/conteudo"
+            android:layout_marginTop="@dimen/default_detail_margin_vert"
+            android:layout_marginBottom="@dimen/default_detail_margin_vert"
+            android:layout_marginStart="@dimen/default_detail_margin_horiz"
+            android:layout_marginEnd="@dimen/default_detail_margin_horiz"
+            android:textAlignment="center"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
+
+    <TextView
         android:id="@+id/conteudo"
         android:transitionName="conteudo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/detailTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/pieChart"

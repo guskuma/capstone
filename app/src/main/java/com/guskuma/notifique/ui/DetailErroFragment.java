@@ -23,16 +23,21 @@ public class DetailErroFragment extends Fragment {
 
     @BindView(R.id.causaErro)
     public TextView mCausaErro;
+
     @BindView(R.id.detalheErro)
     public TextView mDetalheErro;
+
+    @BindView(R.id.detailTitle)
+    TextView mTituloDetalhe;
 
     public DetailErroFragment() {
     }
 
-    public static DetailErroFragment newInstance(Notificacao notificacao) {
+    public static DetailErroFragment newInstance(Notificacao notificacao, boolean setTitle) {
         DetailErroFragment fragment = new DetailErroFragment();
         Bundle args = new Bundle();
         args.putParcelable(DetailActivity.ARG_NOTIFICACAO, Parcels.wrap(notificacao));
+        args.putBoolean(DetailActivity.ARG_SET_TITLE, setTitle);
         fragment.setArguments(args);
         return fragment;
     }
@@ -46,8 +51,13 @@ public class DetailErroFragment extends Fragment {
 
         mNotificacao = Parcels.unwrap(getArguments().getParcelable(DetailActivity.ARG_NOTIFICACAO));
 
-        ConteudoErro conteudoErro = new Gson().fromJson(mNotificacao.conteudo, ConteudoErro.class);
+        if(getArguments().getBoolean(DetailActivity.ARG_SET_TITLE)) {
+            mTituloDetalhe.setText(mNotificacao.titulo);
+        } else {
+            mTituloDetalhe.setVisibility(View.GONE);
+        }
 
+        ConteudoErro conteudoErro = new Gson().fromJson(mNotificacao.conteudo, ConteudoErro.class);
         mCausaErro.setText(conteudoErro.causa_erro);
         mDetalheErro.setText(conteudoErro.detalhe_erro);
 

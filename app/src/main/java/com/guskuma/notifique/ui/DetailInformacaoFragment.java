@@ -25,13 +25,17 @@ public class DetailInformacaoFragment extends Fragment {
 
     @BindView(R.id.conteudo) public TextView mConteudo;
 
+    @BindView(R.id.detailTitle)
+    TextView mTituloDetalhe;
+
     public DetailInformacaoFragment() { }
 
-    public static DetailInformacaoFragment newInstance(Notificacao notificacao) {
+    public static DetailInformacaoFragment newInstance(Notificacao notificacao, boolean setTitle) {
         DetailInformacaoFragment fragment = new DetailInformacaoFragment();
         Bundle args = new Bundle();
         args.putParcelable(DetailActivity.ARG_NOTIFICACAO, Parcels.wrap(notificacao));
         fragment.setArguments(args);
+        args.putBoolean(DetailActivity.ARG_SET_TITLE, setTitle);
         return fragment;
     }
 
@@ -43,6 +47,14 @@ public class DetailInformacaoFragment extends Fragment {
         Timber.plant(new Timber.DebugTree());
 
         mNotificacao = Parcels.unwrap(getArguments().getParcelable(DetailActivity.ARG_NOTIFICACAO));
+
+        if(getArguments().getBoolean(DetailActivity.ARG_SET_TITLE)) {
+            mTituloDetalhe.setText(mNotificacao.titulo);
+        } else {
+            mTituloDetalhe.setVisibility(View.GONE);
+        }
+
+
         mConteudo.setText(Html.fromHtml(mNotificacao.conteudo));
 
         return view;

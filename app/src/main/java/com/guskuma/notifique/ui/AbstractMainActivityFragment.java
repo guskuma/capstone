@@ -8,12 +8,10 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.util.Pair;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -41,10 +39,10 @@ public class AbstractMainActivityFragment extends Fragment implements LoaderMana
     private Loader mLoader;
     private NotificacoesAdapter mAdapter;
     private BroadcastReceiver mReceiver;
+    private NotificacoesAdapter.NotificacaoInteractionListener mMainActivityListener;
 
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -52,16 +50,7 @@ public class AbstractMainActivityFragment extends Fragment implements LoaderMana
         mUnbinder = ButterKnife.bind(this, view);
         Timber.plant(new Timber.DebugTree());
 
-        mAdapter = new NotificacoesAdapter((clickedView, item) -> {
-            Timber.d("Item clicado: " + item.titulo);
-            Intent i = new Intent(getContext(), DetailActivity.class);
-            i.putExtra(DetailActivity.ARG_NOTIFICACAO, Parcels.wrap(item));
-
-            Pair<View, String> p1 = Pair.create(clickedView, getResources().getString(R.string.transition_name_titulo));
-            Pair<View, String> p2 = Pair.create(clickedView, getResources().getString(R.string.transition_name_conteudo));
-            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), p1, p2);
-            startActivity(i, options.toBundle());
-        });
+        mAdapter = new NotificacoesAdapter((NotificacoesAdapter.NotificacaoInteractionListener) getActivity());
 
         mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), getResources().getInteger(R.integer.gridlayout_columns)));
         mRecyclerView.setAdapter(mAdapter);
@@ -115,5 +104,17 @@ public class AbstractMainActivityFragment extends Fragment implements LoaderMana
     @Override
     public void onLoaderReset(@NonNull Loader<List<Notificacao>> loader) {
 
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        try {
+            mMainActivityListener = (NotificacoesAdapter.NotificacaoInteractionListener) context;
+        } catch (ClassCastException e ){
+            throw new ClassCastException(context.toString()
+                    + " must implement MainActivityListener");
+        }
     }
 }

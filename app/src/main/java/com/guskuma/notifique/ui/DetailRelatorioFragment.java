@@ -38,14 +38,18 @@ public class DetailRelatorioFragment extends Fragment {
     @BindView(R.id.pieChart)
     public PieChart mChart;
 
+    @BindView(R.id.detailTitle)
+    TextView mTituloDetalhe;
+
     public DetailRelatorioFragment() {
     }
 
-    public static DetailRelatorioFragment newInstance(Notificacao notificacao) {
+    public static DetailRelatorioFragment newInstance(Notificacao notificacao, boolean setTitle) {
         DetailRelatorioFragment fragment = new DetailRelatorioFragment();
         Bundle args = new Bundle();
         args.putParcelable(DetailActivity.ARG_NOTIFICACAO, Parcels.wrap(notificacao));
         fragment.setArguments(args);
+        args.putBoolean(DetailActivity.ARG_SET_TITLE, setTitle);
         return fragment;
     }
 
@@ -57,6 +61,12 @@ public class DetailRelatorioFragment extends Fragment {
         Timber.plant(new Timber.DebugTree());
 
         mNotificacao = Parcels.unwrap(getArguments().getParcelable(DetailActivity.ARG_NOTIFICACAO));
+
+        if(getArguments().getBoolean(DetailActivity.ARG_SET_TITLE)) {
+            mTituloDetalhe.setText(mNotificacao.titulo);
+        } else {
+            mTituloDetalhe.setVisibility(View.GONE);
+        }
 
         ConteudoRelatorio relatorio = new Gson().fromJson(mNotificacao.conteudo, ConteudoRelatorio.class);
         mConteudo.setText(relatorio.conteudo);

@@ -16,4 +16,5 @@
     <string name="notification_type_warning">Erro</string>
     <string name="notification_type_report">Relatório</string>
     <string name="notification_type_unknown">Não reconhecido</string>
+    <string name="selecione_um_item_ao_lado">Selecione um item ao lado</string>
 </resources>

@@ -1,0 +1,43 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_height="match_parent"
+                                             android:layout_width="match_parent"
+                                             android:layout_marginTop="?android:attr/actionBarSize">
+    <fragment
+            android:id="@+id/masterFragmentPlaceHolder"
+            android:name="com.guskuma.notifique.ui.MainActivityFragment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintWidth_percent="0.3"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:layout="@layout/fragment_main"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/detailFragmentPlaceHolder"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <FrameLayout
+            android:id="@+id/detailFragmentPlaceHolder"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/masterFragmentPlaceHolder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="@dimen/default_detail_margin_vert"
+            android:layout_marginStart="@dimen/default_detail_margin_horiz"
+            android:layout_marginEnd="@dimen/default_detail_margin_horiz"/>
+
+    <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:transitionName="@string/transition_name_color_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone"
+            app:srcCompat="@android:drawable/ic_dialog_email"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:layout_marginEnd="@dimen/fab_margin"/>
+</android.support.constraint.ConstraintLayout>

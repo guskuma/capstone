@@ -1,0 +1,31 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tool="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/widget_margin"
+                android:background="@color/cardview_light_background">
+
+    <TextView
+            android:id="@+id/titulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/default_space_between_views"
+            android:paddingStart="@dimen/default_space_between_views"
+            android:paddingEnd="@dimen/default_space_between_views"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            tool:text="Titulo UI Cardview"
+            android:ellipsize="end"
+            android:lines="1"/>
+
+    <TextView
+            android:id="@+id/conteudo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/titulo"
+            android:paddingStart="@dimen/default_space_between_views"
+            android:paddingEnd="@dimen/default_space_between_views"
+            android:paddingTop="@dimen/default_space_between_views"
+            android:ellipsize="end"
+            tool:text="Mauris vel arcu vel ex mollis iaculis. Suspendisse potenti. Phasellus in ex enim. In pellentesque ante in nulla aliquet tempus. Nunc sed ipsum metus. Curabitur vitae eros non libero mollis iaculis. Proin tristique eleifend egestas. Donec justo mauris, tempor in sem a, imperdiet suscipit dui. Pellentesque rhoncus imperdiet arcu quis dapibus. Maecenas dolor leo, imperdiet nec aliquet sit amet, gravida at mi. Nullam tincidunt mauris ac nunc interdum, eu volutpat velit aliquam."/>
+
+</RelativeLayout>

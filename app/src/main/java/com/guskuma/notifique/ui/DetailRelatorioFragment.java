@@ -2,14 +2,11 @@ package com.guskuma.notifique.ui;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -22,15 +19,11 @@ import com.guskuma.notifique.commons.ConteudoRelatorio;
 import com.guskuma.notifique.commons.ConteudoRelatorioDetalheGrafico;
 import com.guskuma.notifique.data.model.Notificacao;
 import org.parceler.Parcels;
-import timber.log.Timber;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DetailRelatorioFragment extends Fragment {
-
-    private Unbinder mUnbinder;
-    private Notificacao mNotificacao;
+public class DetailRelatorioFragment extends AbstractDetailFragment {
 
     @BindView(R.id.conteudo)
     public TextView mConteudo;
@@ -38,35 +31,20 @@ public class DetailRelatorioFragment extends Fragment {
     @BindView(R.id.pieChart)
     public PieChart mChart;
 
-    @BindView(R.id.detailTitle)
-    TextView mTituloDetalhe;
+    public DetailRelatorioFragment() { super(); }
 
-    public DetailRelatorioFragment() {
-    }
-
-    public static DetailRelatorioFragment newInstance(Notificacao notificacao, boolean setTitle) {
+    public static DetailRelatorioFragment newInstance(Notificacao notificacao) {
         DetailRelatorioFragment fragment = new DetailRelatorioFragment();
         Bundle args = new Bundle();
         args.putParcelable(DetailActivity.ARG_NOTIFICACAO, Parcels.wrap(notificacao));
         fragment.setArguments(args);
-        args.putBoolean(DetailActivity.ARG_SET_TITLE, setTitle);
         return fragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_detail_relatorio, container, false);
-        mUnbinder = ButterKnife.bind(this, view);
-        Timber.plant(new Timber.DebugTree());
-
-        mNotificacao = Parcels.unwrap(getArguments().getParcelable(DetailActivity.ARG_NOTIFICACAO));
-
-        if(getArguments().getBoolean(DetailActivity.ARG_SET_TITLE)) {
-            mTituloDetalhe.setText(mNotificacao.titulo);
-        } else {
-            mTituloDetalhe.setVisibility(View.GONE);
-        }
+        View view = super.onCreateView(inflater, container, savedInstanceState);
 
         ConteudoRelatorio relatorio = new Gson().fromJson(mNotificacao.conteudo, ConteudoRelatorio.class);
         mConteudo.setText(relatorio.conteudo);
@@ -118,11 +96,5 @@ public class DetailRelatorioFragment extends Fragment {
         mChart.setData(data);
 
         return view;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        mUnbinder.unbind();
     }
 }

@@ -109,13 +109,13 @@ public class MainActivity extends AppCompatActivity implements NotificacoesAdapt
             //Verifica o tipo da notificação e aí gera o fragment adequado
             switch (item.tipo) {
                 case TipoNotificacao.INFORMACAO:
-                    mDetailFragment = DetailInformacaoFragment.newInstance(item, true);
+                    mDetailFragment = DetailInformacaoFragment.newInstance(item);
                     break;
                 case TipoNotificacao.RELATORIO:
-                    mDetailFragment = DetailRelatorioFragment.newInstance(item, true);
+                    mDetailFragment = DetailRelatorioFragment.newInstance(item);
                     break;
                 case TipoNotificacao.ERRO:
-                    mDetailFragment = DetailErroFragment.newInstance(item, true);
+                    mDetailFragment = DetailErroFragment.newInstance(item);
                     break;
                 default:
                     throw new Resources.NotFoundException("TipoNotificacao desconhecido");

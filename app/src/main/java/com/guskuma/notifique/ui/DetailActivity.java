@@ -13,13 +13,13 @@ import com.guskuma.notifique.R;
 import com.guskuma.notifique.commons.TipoNotificacao;
 import com.guskuma.notifique.data.NotifiqueHelper;
 import com.guskuma.notifique.data.model.Notificacao;
+import com.guskuma.notifique.service.MyFirebaseMessagingService;
 import org.parceler.Parcels;
 import timber.log.Timber;
 
 public class DetailActivity extends AppCompatActivity {
 
     public static final String ARG_NOTIFICACAO = "NotificacaoEntity";
-    public static final String ARG_SET_TITLE = "SetTitle?";
 
     @BindView(R.id.titulo) public TextView mTitulo;
     @BindView(R.id.fab) FloatingActionButton mFab;
@@ -52,22 +52,22 @@ public class DetailActivity extends AppCompatActivity {
         //Verifica o tipo da notificação e aí gera o fragment adequado
         switch (mNotificacao.tipo){
             case TipoNotificacao.INFORMACAO:
-                fragment = DetailInformacaoFragment.newInstance(mNotificacao, false);
+                fragment = DetailInformacaoFragment.newInstance(mNotificacao);
                 setTheme(R.style.AppThemeInformacao);
                 break;
             case TipoNotificacao.RELATORIO:
-                fragment = DetailRelatorioFragment.newInstance(mNotificacao, false);
+                fragment = DetailRelatorioFragment.newInstance(mNotificacao);
                 setTheme(R.style.AppThemeRelatorio);
                 break;
             case TipoNotificacao.ERRO:
-                fragment = DetailErroFragment.newInstance(mNotificacao, false);
+                fragment = DetailErroFragment.newInstance(mNotificacao);
                 setTheme(R.style.AppThemeErro);
                 break;
             default:
                 return true;
         }
 
-        mTitulo.setText(mNotificacao.titulo);
+        mTitulo.setText(MyFirebaseMessagingService.getNotificacaoDescricao(mNotificacao.tipo, this));
 
         if(fragment != null){
             getSupportFragmentManager().beginTransaction().replace(R.id.detailFragmentPlaceHolder, fragment).commit();

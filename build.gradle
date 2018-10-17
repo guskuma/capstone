@@ -28,3 +28,15 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+task "testeIntegradoEndpointApp" {
+    description "Teste integrado da conexão endpoint - app"
+    group "android"
+
+    dependsOn ':gce:appengineStart'
+    finalizedBy ':gce:appengineStop'
+
+    doLast {
+        ':app:connectedAndroidTest'
+    }
+}

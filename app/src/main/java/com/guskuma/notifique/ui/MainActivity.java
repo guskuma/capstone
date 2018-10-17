@@ -13,10 +13,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -42,6 +42,10 @@ public class MainActivity extends AppCompatActivity implements NotificacoesAdapt
     @BindView(R.id.detailFragmentPlaceHolder)
     FrameLayout mDetailFragmentPlaceholder;
 
+    @Nullable
+    @BindView(R.id.noFragment)
+    TextView mNoFramentSelected;
+
     Fragment mDetailFragment;
 
     @Override
@@ -56,13 +60,6 @@ public class MainActivity extends AppCompatActivity implements NotificacoesAdapt
         createNotificationChannel();
 
         FirebaseMessaging.getInstance().subscribeToTopic("all");
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
     }
 
     @Override
@@ -130,6 +127,7 @@ public class MainActivity extends AppCompatActivity implements NotificacoesAdapt
             mFab.setImageDrawable(NotifiqueHelper.getDrawable(this, item.acao));
             mFab.setVisibility(View.VISIBLE);
 
+            mNoFramentSelected.setVisibility(View.GONE);
 
         } else {
             Intent i = new Intent(this, DetailActivity.class);

@@ -17,6 +17,17 @@
             app:layout_constraintEnd_toStartOf="@id/detailFragmentPlaceHolder"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
+    <TextView
+            android:id="@+id/noFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sem_notificacao_selecionada"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/masterFragmentPlaceHolder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+    />
+
     <FrameLayout
             android:id="@+id/detailFragmentPlaceHolder"
             android:layout_width="0dp"

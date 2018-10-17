@@ -17,6 +17,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -43,6 +44,10 @@ public class AbstractMainActivityFragment extends Fragment implements LoaderMana
 
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
+
+    @BindView(R.id.emptyList)
+    TextView mEmptyMsg;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -64,10 +69,21 @@ public class AbstractMainActivityFragment extends Fragment implements LoaderMana
                 int index = mAdapter.addItem(notificacao);
                 mAdapter.notifyItemInserted(index);
                 mAdapter.notifyDataSetChanged();
+                setListVisibility();
             }
         };
 
         return view;
+    }
+
+    private void setListVisibility() {
+        if(mAdapter.getItemCount() == 0){
+            mRecyclerView.setVisibility(View.GONE);
+            mEmptyMsg.setVisibility(View.VISIBLE);
+        } else {
+            mRecyclerView.setVisibility(View.VISIBLE);
+            mEmptyMsg.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -99,6 +115,7 @@ public class AbstractMainActivityFragment extends Fragment implements LoaderMana
     public void onLoadFinished(@NonNull Loader<List<Notificacao>> loader, List<Notificacao> data) {
         mAdapter.setItems(data);
         mAdapter.notifyDataSetChanged();
+        setListVisibility();
     }
 
     @Override

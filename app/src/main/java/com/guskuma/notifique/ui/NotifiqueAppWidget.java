@@ -5,7 +5,10 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.text.Html;
 import android.widget.RemoteViews;
+import com.google.gson.Gson;
 import com.guskuma.notifique.R;
+import com.guskuma.notifique.commons.ConteudoErro;
+import com.guskuma.notifique.commons.ConteudoRelatorio;
 import com.guskuma.notifique.commons.TipoNotificacao;
 import com.guskuma.notifique.data.support.UltimaNotificacaoLoader;
 
@@ -23,10 +26,16 @@ public class NotifiqueAppWidget extends AppWidgetProvider {
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.notifique_app_widget);
             views.setTextViewText(R.id.titulo, notificacao.titulo);
 
-            if(notificacao.tipo == TipoNotificacao.INFORMACAO) {
-                views.setTextViewText(R.id.conteudo, Html.fromHtml(notificacao.conteudo));
-            } else {
-                views.setTextViewText(R.id.conteudo, notificacao.conteudo);
+            switch (notificacao.tipo) {
+                case TipoNotificacao.INFORMACAO:
+                    views.setTextViewText(R.id.conteudo, Html.fromHtml(notificacao.conteudo));
+                    break;
+                case TipoNotificacao.RELATORIO:
+                    views.setTextViewText(R.id.conteudo,  new Gson().fromJson(notificacao.conteudo, ConteudoRelatorio.class).conteudo);
+                    break;
+                case TipoNotificacao.ERRO:
+                    views.setTextViewText(R.id.conteudo, new Gson().fromJson(notificacao.conteudo, ConteudoErro.class).causa_erro);
+                    break;
             }
 
             // Instruct the widget manager to update the widget

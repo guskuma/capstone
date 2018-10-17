@@ -22,23 +22,23 @@ Calls to API shoud be done using HTTP POST with "Content-Type = 'Application/JSO
 }
 <h3>Report body request example</h3>
 {<br>
-     "tipo": "1",<br>
-     "titulo": "Perfil de vendas",<br>
-     "conteudo_relatorio": {<br>
-     	"conteudo" : "O detalhamento do perfil de vendas no ano corrente, como um exemplo para este aplicativo. Mauris vel arcu vel ex mollis iaculis. Suspendisse potenti. Phasellus in ex enim. In pellentesque ante in nulla aliquet tempus. Nunc sed ipsum metus. Curabitur vitae eros non libero mollis iaculis. Proin tristique eleifend egestas. Donec justo mauris, tempor in sem a, imperdiet suscipit dui. Pellentesque rhoncus imperdiet arcu quis dapibus. Maecenas dolor leo, imperdiet nec aliquet sit amet, gravida at mi. Nullam tincidunt mauris ac nunc interdum, eu volutpat velit aliquam.",<br>
-     	"titulo_grafico" : "Canal de vendas 2018",<br>
-     	"detalhe_grafico" : [<br>
-     		{"rotulo" : "Internet", "porcentagem" : 68},<br>
-     		{"rotulo" : "Loja - Shopping", "porcentagem" : 18},<br>
-     		{"rotulo" : "Loja - Rua", "porcentagem" : 12},<br>
-     		{"rotulo" : "Colaborador", "porcentagem" : 2}<br>
-     	]<br>
-     },<br>
-     "conteudo_informacao" : "",<br>
-     "conteudo_erro" : {},<br>
-     "acao": "1",<br>
-     "acao_conteudo": "O detalhamento do perfil de vendas no ano corrente, como um exemplo para este aplicativo. Mauris vel arcu vel ex mollis iaculis. Suspendisse potenti. Phasellus in ex enim. In pellentesque ante in nulla aliquet tempus. Nunc sed ipsum metus. Curabitur vitae eros non libero mollis iaculis. Proin tristique eleifend egestas. Donec justo mauris, tempor in sem a, imperdiet suscipit dui. Pellentesque rhoncus imperdiet arcu quis dapibus. Maecenas dolor leo, imperdiet nec aliquet sit amet, gravida at mi. Nullam tincidunt mauris ac nunc interdum, eu volutpat velit aliquam."<br>
- }
+    "tipo": "1",<br>
+    "titulo": "Receita Bruta - 2T18",<br>
+    "conteudo_relatorio": {<br>
+    	"conteudo" : "Encerramos o 2T18 com uma receita bruta consolidada de R$ 3.791,6 milhões, um incremento de 11,6% em relação 2T17. Nossas operações de drogarias registraram um crescimento de 10,6%, enquanto a 4Bio cresceu 36,3% no período. OTC foi o destaque do trimestre com crescimento de 18,8% e ganho de 1,4 ponto percentual no mix de vendas. HPC cresceu 11,0%, ganhou 0,1 ponto percentual no mix. Em contrapartida, Marca cresceu 8,9% no trimestre e perdeu 0,7 ponto percentual. É importante mencionar que a forte performance de OTC foi alavancada pelo switch de alguns medicamentos de Marca para OTC, uma migração de 0,4 ponto percentual. Os Genéricos cresceram 3,4% em receita, mas registraram um incremento de 13,7% em unidades vendidas, refletindo um investimento bem-sucedido em preços ao passo em que preservamos a margem bruta total. Obtivemos um crescimento de 2,5% nas mesmas lojas e uma contração de 1,4% nas maduras. Registramos um efeito calendário de +0,6% no trimestre, que foi neutralizado pela queda de receita de mesmo montante em função dos jogos do Brasil na Copa do Mundo.",<br>
+    	"titulo_grafico" : "Mix de Vendas do Varejo",<br>
+    	"detalhe_grafico" : [<br>
+    		{"rotulo" : "Perfumaria", "porcentagem" : 24.8},<br>
+    		{"rotulo" : "OTC", "porcentagem" : 19.8},<br>
+    		{"rotulo" : "Genéricos", "porcentagem" : 11.0},<br>
+    		{"rotulo" : "Marca", "porcentagem" : 44.3}<br>
+    	]<br>
+    },<br>
+    "conteudo_informacao" : "",<br>
+    "conteudo_erro" : {},<br>
+    "acao": "1",<br>
+    "acao_conteudo": "Encerramos o 2T18 com uma receita bruta consolidada de R$ 3.791,6 milhões, um incremento de 11,6% em relação 2T17. Nossas operações de drogarias registraram um crescimento de 10,6%, enquanto a 4Bio cresceu 36,3% no período. OTC foi o destaque do trimestre com crescimento de 18,8% e ganho de 1,4 ponto percentual no mix de vendas. HPC cresceu 11,0%, ganhou 0,1 ponto percentual no mix. Em contrapartida, Marca cresceu 8,9% no trimestre e perdeu 0,7 ponto percentual. É importante mencionar que a forte performance de OTC foi alavancada pelo switch de alguns medicamentos de Marca para OTC, uma migração de 0,4 ponto percentual. Os Genéricos cresceram 3,4% em receita, mas registraram um incremento de 13,7% em unidades vendidas, refletindo um investimento bem-sucedido em preços ao passo em que preservamos a margem bruta total. Obtivemos um crescimento de 2,5% nas mesmas lojas e uma contração de 1,4% nas maduras. Registramos um efeito calendário de +0,6% no trimestre, que foi neutralizado pela queda de receita de mesmo montante em função dos jogos do Brasil na Copa do Mundo."<br>
+}
 <h3>Warning body request example</h3>
 {<br>
      "tipo": "2",<br>

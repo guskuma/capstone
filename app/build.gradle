@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.cloud.tools.endpoints-framework-client'
 
 buildscript {
     repositories {
@@ -11,6 +10,14 @@ buildscript {
 }
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'key0'
+            keyPassword 'capstone'
+            storeFile file('keystore.jks')
+            storePassword 'capstone'
+        }
+    }
     flavorDimensions "versionCode"
     compileSdkVersion 27
     defaultConfig {
@@ -30,6 +37,7 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
     productFlavors {
@@ -42,6 +50,15 @@ android {
     }
     packagingOptions {
         exclude 'META-INF/services/javax.annotation.processing.Processor'  // butterknife & parceler
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+
     }
     configurations.all {
         resolutionStrategy.force 'com.android.support:animated-vector-drawable:27.1.1'
@@ -54,12 +71,10 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-
-    endpointsServer project(path: ':gce', configuration: 'endpoints')
-    implementation 'com.google.api-client:google-api-client:1.23.0'
-    implementation 'com.google.http-client:google-http-client-android:1.23.0'
-    implementation 'com.google.code.findbugs:jsr305:3.0.1'
+    androidTestImplementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation 'com.google.api-client:google-api-client:1.25.0'
+    androidTestImplementation 'com.google.http-client:google-http-client-android:1.23.0'
+    androidTestImplementation 'com.google.code.findbugs:jsr305:3.0.2'
 
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     implementation 'com.android.support:appcompat-v7:27.1.1'

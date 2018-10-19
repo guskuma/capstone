@@ -2,7 +2,7 @@
 <h2>Build/Run configuration</h2>
 Add following files to run app and gce backend:
 <ul>
-    <li>app/google-services.json</li>
+    <li>app/google-services.json (with app ids com.guskuma.notifique.free and com.guskuma.notifique.paid)</li>
     <li>gce/src/main/webapp/WEB-INF/serviceAccountKey.json</li>
 </ul>
 Both files can be downloaded from Firebase console.

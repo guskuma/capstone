@@ -17,8 +17,7 @@
     <string name="notification_type_report">Relatório</string>
     <string name="notification_type_unknown">Não reconhecido</string>
     <string name="selecione_um_item_ao_lado">Selecione um item ao lado</string>
-    <string name="sem_notificacoes">Nenhuma notificação recebida =(</string>
+    <string name="sem_notificacoes">Nenhuma notificação recebida =(\nLeia o README para saber como enviar notificações.</string>
     <string name="sem_notificacao_selecionada">Selecione uma notificação para ser exibida aqui!</string>
-    <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
 </resources>

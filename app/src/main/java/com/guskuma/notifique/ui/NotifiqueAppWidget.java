@@ -22,20 +22,26 @@ public class NotifiqueAppWidget extends AppWidgetProvider {
 
         UltimaNotificacaoLoader loader = new UltimaNotificacaoLoader();
         loader.setListener(notificacao -> {
-            // Construct the RemoteViews object
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.notifique_app_widget);
-            views.setTextViewText(R.id.titulo, notificacao.titulo);
 
-            switch (notificacao.tipo) {
-                case TipoNotificacao.INFORMACAO:
-                    views.setTextViewText(R.id.conteudo, Html.fromHtml(notificacao.conteudo));
-                    break;
-                case TipoNotificacao.RELATORIO:
-                    views.setTextViewText(R.id.conteudo,  new Gson().fromJson(notificacao.conteudo, ConteudoRelatorio.class).conteudo);
-                    break;
-                case TipoNotificacao.ERRO:
-                    views.setTextViewText(R.id.conteudo, new Gson().fromJson(notificacao.conteudo, ConteudoErro.class).causa_erro);
-                    break;
+            if(notificacao != null) {
+                
+                views.setTextViewText(R.id.titulo, notificacao.titulo);
+
+                switch (notificacao.tipo) {
+                    case TipoNotificacao.INFORMACAO:
+                        views.setTextViewText(R.id.conteudo, Html.fromHtml(notificacao.conteudo));
+                        break;
+                    case TipoNotificacao.RELATORIO:
+                        views.setTextViewText(R.id.conteudo, new Gson().fromJson(notificacao.conteudo, ConteudoRelatorio.class).conteudo);
+                        break;
+                    case TipoNotificacao.ERRO:
+                        views.setTextViewText(R.id.conteudo, new Gson().fromJson(notificacao.conteudo, ConteudoErro.class).causa_erro);
+                        break;
+                }
+            } else {
+                views.setTextViewText(R.id.titulo, context.getString(R.string.nenhuma_notificacao));
+                views.setTextViewText(R.id.conteudo,context.getString(R.string.sem_notificacoes));
             }
 
             // Instruct the widget manager to update the widget

@@ -3,10 +3,12 @@ package com.guskuma.notifique.service;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.LocalBroadcastManager;
+import android.widget.Toast;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
@@ -43,62 +45,75 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
-        AppDatabase mDb = AppDatabaseHelper.getDb(this.getApplicationContext());
+        try {
 
-        // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
-        Timber.d("From: %s", remoteMessage.getFrom());
+            AppDatabase mDb = AppDatabaseHelper.getDb(this.getApplicationContext());
 
-        // Check if message contains a data payload.
-        if (remoteMessage.getData().size() > 0) {
-            Timber.d("Message data payload: %s", remoteMessage.getData());
+            // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
+            Timber.d("From: %s", remoteMessage.getFrom());
 
-            MessagePayload msg = MessagePayload.getMessagePayload(remoteMessage.getData());
+            // Check if message contains a data payload.
+            if (remoteMessage.getData().size() > 0) {
+                Timber.d("Message data payload: %s", remoteMessage.getData());
 
-            Notificacao notificacao = new Notificacao();
-            notificacao.remote_id = new Random().nextInt();
-            notificacao.tipo = Integer.valueOf(msg.tipo);
-            notificacao.titulo = msg.titulo;
-            notificacao.acao = Integer.valueOf(msg.acao);
-            notificacao.acao_conteudo = msg.acao_conteudo;
-            notificacao.lida = false;
-            notificacao.fixa = false;
-            notificacao.ultima_atualizacao = new Date();
+                MessagePayload msg = MessagePayload.getMessagePayload(remoteMessage.getData());
 
-            switch (notificacao.tipo){
-                case INFORMACAO:
-                    notificacao.conteudo = msg.conteudo_informacao;
-                    break;
-                case TipoNotificacao.RELATORIO:
-                    notificacao.conteudo = gson.toJson(msg.conteudo_relatorio);
-                    break;
-                case TipoNotificacao.ERRO:
-                    notificacao.conteudo = gson.toJson(msg.conteudo_erro);
-                    break;
+                Notificacao notificacao = new Notificacao();
+                notificacao.remote_id = new Random().nextInt();
+                notificacao.tipo = Integer.valueOf(msg.tipo);
+                notificacao.titulo = msg.titulo;
+                notificacao.acao = Integer.valueOf(msg.acao);
+                notificacao.acao_conteudo = msg.acao_conteudo;
+                notificacao.lida = false;
+                notificacao.fixa = false;
+                notificacao.ultima_atualizacao = new Date();
+
+                switch (notificacao.tipo) {
+                    case INFORMACAO:
+                        notificacao.conteudo = msg.conteudo_informacao;
+                        break;
+                    case TipoNotificacao.RELATORIO:
+                        notificacao.conteudo = gson.toJson(msg.conteudo_relatorio);
+                        break;
+                    case TipoNotificacao.ERRO:
+                        notificacao.conteudo = gson.toJson(msg.conteudo_erro);
+                        break;
+                }
+
+                mDb.notificacaoDAO().insert(notificacao);
+
+                Intent intent = new Intent(this, DetailActivity.class);
+                intent.putExtra(DetailActivity.ARG_NOTIFICACAO, Parcels.wrap(notificacao));
+
+                TaskStackBuilder stackBuilder = TaskStackBuilder.create(this).addNextIntentWithParentStack(intent);
+
+                PendingIntent pendingIntent = stackBuilder.getPendingIntent(PENDING_INTENT_REQUEST_CODE, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
+                        .setSmallIcon(R.drawable.ic_launcher_foreground)
+                        .setContentTitle(getNotificacaoDescricao(Integer.valueOf(msg.tipo), getApplicationContext()))
+                        .setContentText(msg.titulo)
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                        .setContentIntent(pendingIntent)
+                        .setAutoCancel(true);
+
+                NotificationManagerCompat.from(this).notify(NOTIFICATION_ID, mBuilder.build());
+
+                Intent broadcastIntent = new Intent(BROADCAST_NOVA_NOTIFICACAO);
+                broadcastIntent.putExtra(BROADCAST_NOVA_NOTIFICACAO_ENTIDADE, Parcels.wrap(notificacao));
+                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(broadcastIntent);
+
             }
+        }catch (Exception ex){
+            ex.printStackTrace();
+            Handler mainHandler = new Handler(getMainLooper());
 
-            mDb.notificacaoDAO().insert(notificacao);
-
-            Intent intent = new Intent(this, DetailActivity.class);
-            intent.putExtra(DetailActivity.ARG_NOTIFICACAO, Parcels.wrap(notificacao));
-
-            TaskStackBuilder stackBuilder = TaskStackBuilder.create(this).addNextIntentWithParentStack(intent);
-
-            PendingIntent pendingIntent = stackBuilder.getPendingIntent(PENDING_INTENT_REQUEST_CODE, PendingIntent.FLAG_UPDATE_CURRENT);
-
-            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
-                    .setSmallIcon(R.drawable.ic_launcher_foreground)
-                    .setContentTitle(getNotificacaoDescricao(Integer.valueOf(msg.tipo), getApplicationContext()))
-                    .setContentText(msg.titulo)
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                    .setContentIntent(pendingIntent)
-                    .setAutoCancel(true);
-
-            NotificationManagerCompat.from(this).notify(NOTIFICATION_ID, mBuilder.build());
-
-            Intent broadcastIntent = new Intent(BROADCAST_NOVA_NOTIFICACAO);
-            broadcastIntent.putExtra(BROADCAST_NOVA_NOTIFICACAO_ENTIDADE, Parcels.wrap(notificacao));
-            LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(broadcastIntent);
-
+            mainHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getApplicationContext(), getString(R.string.erro_notificacao, ex.getMessage()), Toast.LENGTH_LONG).show();
+                }
+            });
         }
     }
 

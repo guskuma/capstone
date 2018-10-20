@@ -107,3 +107,12 @@ dependencies {
 }
 
 apply plugin: 'com.google.gms.google-services'
+
+task installRelease {
+    description "Instalação das versões pagas e gratuitas do Notifique"
+    group "install"
+
+    println 'Install Free and Paid Flavous'
+}
+
+installRelease.dependsOn(':app:installPaidRelease', ':app:installFreeRelease')

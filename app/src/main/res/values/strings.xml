@@ -20,4 +20,6 @@
     <string name="sem_notificacoes">Nenhuma notificação recebida =(\nLeia o README para saber como enviar notificações.</string>
     <string name="sem_notificacao_selecionada">Selecione uma notificação para ser exibida aqui!</string>
     <string name="add_widget">Add widget</string>
+    <string name="erro_notificacao">Erro ao receber notificação: %1$s</string>
+    <string name="nenhuma_notificacao">Sem notificações</string>
 </resources>

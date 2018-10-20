@@ -6,8 +6,6 @@ public class ConteudoRelatorio {
 
     public String conteudo;
 
-    public String titulo_grafico;
-
     public List<ConteudoRelatorioDetalheGrafico> detalhe_grafico;
 
 }

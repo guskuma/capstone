@@ -99,7 +99,6 @@ public class MessageEndpoint {
 
         msg.conteudo_relatorio = new ConteudoRelatorio();
         msg.conteudo_relatorio.conteudo = "Encerramos o 2T18 com uma receita bruta consolidada de R$ 3.791,6 milhões, um incremento de 11,6% em relação 2T17. Nossas operações de drogarias registraram um crescimento de 10,6%, enquanto a 4Bio cresceu 36,3% no período. OTC foi o destaque do trimestre com crescimento de 18,8% e ganho de 1,4 ponto percentual no mix de vendas. HPC cresceu 11,0%, ganhou 0,1 ponto percentual no mix. Em contrapartida, Marca cresceu 8,9% no trimestre e perdeu 0,7 ponto percentual. É importante mencionar que a forte performance de OTC foi alavancada pelo switch de alguns medicamentos de Marca para OTC, uma migração de 0,4 ponto percentual. Os Genéricos cresceram 3,4% em receita, mas registraram um incremento de 13,7% em unidades vendidas, refletindo um investimento bem-sucedido em preços ao passo em que preservamos a margem bruta total. Obtivemos um crescimento de 2,5% nas mesmas lojas e uma contração de 1,4% nas maduras. Registramos um efeito calendário de +0,6% no trimestre, que foi neutralizado pela queda de receita de mesmo montante em função dos jogos do Brasil na Copa do Mundo.";
-        msg.conteudo_relatorio.titulo_grafico = "Mix de Vendas do Varejo";
         msg.conteudo_relatorio.detalhe_grafico = new ArrayList<>();
         msg.conteudo_relatorio.detalhe_grafico.add(new ConteudoRelatorioDetalheGrafico("Perfumaria", 24.8f));
         msg.conteudo_relatorio.detalhe_grafico.add(new ConteudoRelatorioDetalheGrafico("OTC", 19.8f));

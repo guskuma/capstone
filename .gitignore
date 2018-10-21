@@ -8,6 +8,5 @@
 /build
 /captures
 .externalNativeBuild
-app/google-services.json
 gce/src/main/java/webbapp/WEB-INF/serviceAccountKey.json
 gce/build

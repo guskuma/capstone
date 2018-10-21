@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "105164887112",
+    "firebase_url": "https://capstone-project-c681e.firebaseio.com",
+    "project_id": "capstone-project-c681e",
+    "storage_bucket": "capstone-project-c681e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:105164887112:android:e573d5c07023942c",
+        "android_client_info": {
+          "package_name": "com.guskuma.notifique.free"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "105164887112-b28e4h8o07l9qp95jiivst46gjip0h7e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDX-MvlgMLM7C5lqsyXiTnt7Rm0rgJp9UQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:105164887112:android:08e65c0b58c3930e",
+        "android_client_info": {
+          "package_name": "com.guskuma.notifique.paid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "105164887112-b28e4h8o07l9qp95jiivst46gjip0h7e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDX-MvlgMLM7C5lqsyXiTnt7Rm0rgJp9UQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

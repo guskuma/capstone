@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Notifique</string>
-    <string name="action_settings">Settings</string>
+    <string name="teste_api">Teste API</string>
     <string name="title_activity_detail">DetailActivity</string>
     <string name="transition_name_color_indicator">colorIndicator</string>
     <string name="transition_name_titulo">titulo</string>
@@ -17,9 +17,17 @@
     <string name="notification_type_report">Relatório</string>
     <string name="notification_type_unknown">Não reconhecido</string>
     <string name="selecione_um_item_ao_lado">Selecione um item ao lado</string>
-    <string name="sem_notificacoes">Nenhuma notificação recebida =(\nLeia o README para saber como enviar notificações.</string>
+    <string name="sem_notificacoes">Nenhuma notificação recebida =(\nLeia o README para saber como enviar
+        notificações.
+    </string>
     <string name="sem_notificacao_selecionada">Selecione uma notificação para ser exibida aqui!</string>
     <string name="add_widget">Add widget</string>
     <string name="erro_notificacao">Erro ao receber notificação: %1$s</string>
     <string name="nenhuma_notificacao">Sem notificações</string>
+    <string name="enviar_requisicao">Enviar!</string>
+    <string-array name="tipos_notificacoes">
+        <item>Informação</item>
+        <item>Relatório</item>
+        <item>Erro</item>
+    </string-array>
 </resources>

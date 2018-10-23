@@ -80,6 +80,10 @@ dependencies {
     androidTestImplementation 'com.google.api-client:google-api-client:1.25.0'
     androidTestImplementation 'com.google.http-client:google-http-client-android:1.23.0'
     androidTestImplementation 'com.google.code.findbugs:jsr305:3.0.2'
+
+    implementation 'com.squareup.retrofit2:retrofit:2.1.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
